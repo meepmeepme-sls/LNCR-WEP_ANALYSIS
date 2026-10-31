@@ -1,6 +1,6 @@
 @echo off
 setlocal EnableDelayedExpansion
-title LNCR-WEP_ANALYSIS — Build Production Bundle for Cloudflare Pages
+title LNCR-WEP_ANALYSIS - Build Production Bundle for Cloudflare Pages
 
 echo ============================================================================
 echo   Building LNCR-WEP_ANALYSIS for Cloudflare Pages Production
@@ -39,7 +39,7 @@ if exist "%GDRIVE_REPO%" (
 echo.
 echo ============================================================================
 echo   SUCCESS! Ready to deploy to Cloudflare Pages:
-echo   1. Drag & drop the "dist" folder at https://dash.cloudflare.com/pages
+echo   1. Drag and drop the "dist" folder at https://dash.cloudflare.com/pages
 echo   OR
 echo   2. Push to GitHub and connect repository to Cloudflare Pages
 echo ============================================================================

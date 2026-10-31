@@ -1,9 +1,9 @@
 @echo off
 setlocal EnableDelayedExpansion
-title Late Night Combat Robotics — Weapon MOI Analyzer (LNCR-WEP_ANALYSIS)
+title Late Night Combat Robotics - Weapon MOI Analyzer (LNCR-WEP_ANALYSIS)
 
 echo ============================================================================
-echo   LNCR-WEP_ANALYSIS — Combat Robotics Weapon MOI & Dynamics Analyzer
+echo   LNCR-WEP_ANALYSIS - Combat Robotics Weapon MOI and Dynamics Analyzer
 echo ============================================================================
 echo.
 
@@ -33,7 +33,7 @@ if /i not "%CURRENT_DIR%"=="%LOCAL_REPO%" (
 )
 
 if not exist node_modules\three (
-    echo Installing dependencies (Three.js, occt-import-js, Tailwind, React)...
+    echo Installing dependencies...
     call npm.cmd install --no-audit --no-fund
 )
 

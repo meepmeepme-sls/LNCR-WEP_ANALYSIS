@@ -28,13 +28,9 @@ export function detectCylindricalBores(
     const ind = body.indices;
     if (!norm || norm.length === 0) continue;
 
-    // Sample vertices by step to keep performance fast even on high-poly meshes
-    // We check vertex clusters and face normals
     const numTriangles = ind.length / 3;
     const stepSize = Math.max(1, Math.floor(numTriangles / 2000));
 
-    // Group triangles into normal-continuity clusters or examine curvature
-    // In OpenCascade triangulations, vertices on a cylinder share a common radial normal
     const candidateRays: { p: Vector3D; n: Vector3D }[] = [];
 
     for (let i = 0; i < ind.length; i += 3 * stepSize) {
@@ -51,7 +47,6 @@ export function detectCylindricalBores(
       }
     }
 
-    // Test primary coordinate axes: X, Y, Z
     const testDirs: Vector3D[] = [
       { x: 1, y: 0, z: 0 },
       { x: 0, y: 1, z: 0 },
@@ -62,28 +57,23 @@ export function detectCylindricalBores(
     }
 
     for (const axisDir of testDirs) {
-      // Find rays perpendicular to this axisDir: n . axisDir ≈ 0
       const perpRays = candidateRays.filter((r) => {
         const dot = Math.abs(r.n.x * axisDir.x + r.n.y * axisDir.y + r.n.z * axisDir.z);
-        return dot < 0.15; // Within ~8.5 degrees of perpendicular
+        return dot < 0.15;
       });
 
       if (perpRays.length < 24) continue;
 
-      // Group into 2D perpendicular coordinate system
-      // Let u = axisDir, find orthogonal basis v, w
       const ref = Math.abs(axisDir.x) < 0.8 ? { x: 1, y: 0, z: 0 } : { x: 0, y: 1, z: 0 };
       const v = normalizeVector(crossProduct(axisDir, ref));
       const w = normalizeVector(crossProduct(axisDir, v));
 
-      // Project points to 2D
       const pts2D = perpRays.map((r) => ({
         u: r.p.x * v.x + r.p.y * v.y + r.p.z * v.z,
         v: r.p.x * w.x + r.p.y * w.y + r.p.z * w.z,
         orig: r.p,
       }));
 
-      // Approximate center via average
       let avgU = 0, avgV = 0;
       pts2D.forEach((p) => {
         avgU += p.u;
@@ -92,21 +82,16 @@ export function detectCylindricalBores(
       avgU /= pts2D.length;
       avgV /= pts2D.length;
 
-      // Check radial consistency: distance from (avgU, avgV)
       const radii = pts2D.map((p) => Math.hypot(p.u - avgU, p.v - avgV));
       radii.sort((a, b) => a - b);
       const medianR = radii[Math.floor(radii.length / 2)];
 
-      // Standard combat robotics shaft bores are between 3mm and 60mm diameter (1.5mm - 30mm radius)
       if (medianR < 1.5 || medianR > 35) continue;
 
-      // Check how many points lie within 10% of median radius
       const inliers = radii.filter((r) => Math.abs(r - medianR) / medianR < 0.12);
       const inlierRatio = inliers.length / radii.length;
 
       if (inlierRatio > 0.45) {
-        // Reconstruct 3D center point
-        // Average the axial coordinate along axisDir
         let avgAxial = 0;
         perpRays.forEach((r) => {
           avgAxial += r.p.x * axisDir.x + r.p.y * axisDir.y + r.p.z * axisDir.z;
@@ -122,7 +107,6 @@ export function detectCylindricalBores(
         const diameter = medianR * 2;
         const diaInches = diameter / 25.4;
 
-        // Confidence score based on inliers and closeness to global COM
         const distToCom = Math.hypot(
           center3D.x - globalCom.x,
           center3D.y - globalCom.y,
@@ -144,7 +128,6 @@ export function detectCylindricalBores(
     }
   }
 
-  // Deduplicate bores with identical center & axis
   const uniqueBores: DetectedBore[] = [];
   for (const bore of rawBores) {
     const existing = uniqueBores.find((b) => {
@@ -168,17 +151,16 @@ export function detectCylindricalBores(
     }
   }
 
-  // Sort by confidence descending
   uniqueBores.sort((a, b) => b.confidence - a.confidence);
   return uniqueBores;
 }
 
 /**
- * Builds the prioritized smart axis list combining:
- * 1. Auto-detected cylindrical shaft bore (if found)
- * 2. Principal inertia axis through COM
- * 3. Principal inertia axis through Bounding Box Center
- * 4. Origin (0,0,0) axes
+ * Builds the prioritized smart axis list:
+ * Priority #1: Center of Mass (COM) - Principal Axis (always guaranteed zero static imbalance)
+ * Priority #2: Auto-detected cylindrical shaft bore (if found)
+ * Priority #3: Center of Bounding Box
+ * Priority #4: Origin (0,0,0)
  */
 export function buildSmartAxisCandidates(
   globalCom: Vector3D,
@@ -188,8 +170,23 @@ export function buildSmartAxisCandidates(
   detectedBores: DetectedBore[]
 ): { candidates: AxisConfig[]; bestAxis: AxisConfig } {
   const candidates: AxisConfig[] = [];
+  const u = normalizeVector(primaryRotationAxis);
+  const uLabel =
+    Math.abs(u.x) > 0.9 ? 'X-Axis' : Math.abs(u.y) > 0.9 ? 'Y-Axis' : 'Z-Axis';
 
-  // 1. If a cylindrical shaft bore was detected, that is priority #1!
+  // 1. PRIMARY DEFAULT: Center of Mass (COM) along Principal Axis
+  candidates.push({
+    name: `⚡ Center of Mass (COM) - ${uLabel}`,
+    origin: {
+      x: Math.round(globalCom.x * 100) / 100,
+      y: Math.round(globalCom.y * 100) / 100,
+      z: Math.round(globalCom.z * 100) / 100,
+    },
+    direction: u,
+    spinReversed: false,
+  });
+
+  // 2. If a cylindrical shaft bore was detected, add it as candidate #2
   if (detectedBores.length > 0) {
     const bestBore = detectedBores[0];
     candidates.push({
@@ -203,22 +200,6 @@ export function buildSmartAxisCandidates(
       spinReversed: false,
     });
   }
-
-  // 2. Principal Inertia Axis passing through Center of Mass
-  const u = normalizeVector(primaryRotationAxis);
-  const uLabel =
-    Math.abs(u.x) > 0.9 ? 'X-Axis' : Math.abs(u.y) > 0.9 ? 'Y-Axis' : 'Z-Axis';
-
-  candidates.push({
-    name: `⚡ Auto-Detected Weapon Axis (${uLabel}) through COM`,
-    origin: {
-      x: Math.round(globalCom.x * 100) / 100,
-      y: Math.round(globalCom.y * 100) / 100,
-      z: Math.round(globalCom.z * 100) / 100,
-    },
-    direction: u,
-    spinReversed: false,
-  });
 
   // 3. Principal Inertia Axis passing through Bounding Box Center
   candidates.push({
@@ -258,8 +239,6 @@ export function buildSmartAxisCandidates(
     }
   }
 
-  // The first candidate is always the smartest / best detected axis
-  const bestAxis = candidates[0];
-
+  const bestAxis = candidates[0]; // Candidate #1 (Center of Mass) is default!
   return { candidates, bestAxis };
 }

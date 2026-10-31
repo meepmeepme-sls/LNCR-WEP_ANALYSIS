@@ -2,23 +2,6 @@ import { SampleModel } from '../types';
 
 export const SAMPLE_MODELS: SampleModel[] = [
   {
-    id: 'sample-6in-bar',
-    title: '6" Beetleweight Spinner Bar (Symmetric)',
-    filename: '6_inch_bar_v4hub.step',
-    weaponType: 'spinner_bar',
-    weightClass: '3 lb Beetleweight',
-    defaultMaterialId: 'ar500',
-    defaultAxis: {
-      name: '🎯 Auto-Detected Shaft Bore',
-      origin: { x: -5.86, y: 74.20, z: 47.50 },
-      direction: { x: 1, y: 0, z: 0 },
-      spinReversed: false,
-    },
-    defaultRpm: 10000,
-    description: 'Double-ended impact blade with central 4-bolt hub mount from Late Night Combat Robotics.',
-    url: './samples/6_inch_bar_v4hub.step',
-  },
-  {
     id: 'sample-av-bar',
     title: '6" Anti-Vertical Weapon Bar (Asymmetric Tooth)',
     filename: '6_inch_av_bar.step',
@@ -26,7 +9,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
     weightClass: '3 lb Beetleweight',
     defaultMaterialId: 's7',
     defaultAxis: {
-      name: '🎯 Auto-Detected Shaft Bore',
+      name: '⚡ Center of Mass (COM) - X-Axis',
       origin: { x: 0, y: 0, z: 0 },
       direction: { x: 1, y: 0, z: 0 },
       spinReversed: false,
@@ -36,6 +19,23 @@ export const SAMPLE_MODELS: SampleModel[] = [
     url: './samples/6_inch_av_bar.step',
   },
   {
+    id: 'sample-6in-bar',
+    title: '6" Beetleweight Spinner Bar (Symmetric)',
+    filename: '6_inch_bar_v4hub.step',
+    weaponType: 'spinner_bar',
+    weightClass: '3 lb Beetleweight',
+    defaultMaterialId: 'ar500',
+    defaultAxis: {
+      name: '⚡ Center of Mass (COM) - X-Axis',
+      origin: { x: -5.86, y: 74.20, z: 47.50 },
+      direction: { x: 1, y: 0, z: 0 },
+      spinReversed: false,
+    },
+    defaultRpm: 10000,
+    description: 'Double-ended impact blade with central 4-bolt hub mount from Late Night Combat Robotics.',
+    url: './samples/6_inch_bar_v4hub.step',
+  },
+  {
     id: 'sample-sawmill-blade',
     title: 'Antweight Weapon Blade (Sawmill)',
     filename: 'sawmill_blade_dud.step',
@@ -43,7 +43,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
     weightClass: '1 lb Antweight',
     defaultMaterialId: 'ar500',
     defaultAxis: {
-      name: '🎯 Auto-Detected Shaft Bore',
+      name: '⚡ Center of Mass (COM) - Z-Axis',
       origin: { x: -49.25, y: 45.78, z: 19.63 },
       direction: { x: 0, y: 0, z: 1 },
       spinReversed: false,
@@ -60,7 +60,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
     weightClass: '1 lb Antweight',
     defaultMaterialId: '4140',
     defaultAxis: {
-      name: '🎯 Auto-Detected Drum Axle',
+      name: '⚡ Center of Mass (COM) - X-Axis',
       origin: { x: -31.45, y: -41.52, z: 57.26 },
       direction: { x: 1, y: 0, z: 0 },
       spinReversed: false,

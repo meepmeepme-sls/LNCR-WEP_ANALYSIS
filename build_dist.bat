@@ -33,12 +33,12 @@ if exist "%GDRIVE_REPO%" (
     copy /y "%LOCAL_REPO%\index.html" "%GDRIVE_REPO%\index.html" >nul 2>nul
     copy /y "%LOCAL_REPO%\start_or_reset.bat" "%GDRIVE_REPO%\start_or_reset.bat" >nul 2>nul
     copy /y "%LOCAL_REPO%\build_dist.bat" "%GDRIVE_REPO%\build_dist.bat" >nul 2>nul
-    echo Done! Production bundle is ready at %GDRIVE_REPO%\dist
+    echo [DONE] Production bundle is ready at: %GDRIVE_REPO%\dist
 )
 
 echo.
 echo ============================================================================
-echo   SUCCESS! Ready to deploy to Cloudflare Pages:
+echo   SUCCESS: Ready to deploy to Cloudflare Pages
 echo   1. Drag and drop the "dist" folder at https://dash.cloudflare.com/pages
 echo   OR
 echo   2. Push to GitHub and connect repository to Cloudflare Pages

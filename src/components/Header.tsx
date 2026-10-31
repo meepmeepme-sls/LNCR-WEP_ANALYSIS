@@ -3,11 +3,7 @@ import { SampleModel } from '../types';
 import { SAMPLE_MODELS } from '../lib/samples';
 import {
   Download,
-  FolderOpen,
   HelpCircle,
-  Play,
-  Share2,
-  Sparkles,
   Upload,
   Zap,
 } from 'lucide-react';
@@ -38,23 +34,23 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="bg-slate-900/90 border-b border-slate-800 px-4 py-3 sticky top-0 z-40 backdrop-blur-md">
+    <header className="bg-white/95 dark:bg-slate-900/90 border-b border-slate-200 dark:border-slate-800 px-4 py-3 sticky top-0 z-40 backdrop-blur-md shadow-xs transition-colors duration-200">
       <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
         {/* Brand / Logo */}
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20 text-slate-950 font-black">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-600 to-blue-700 flex items-center justify-center shadow-md shadow-cyan-600/20 text-white font-black">
             <Zap size={20} className="fill-current" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="font-extrabold text-slate-100 tracking-tight text-base sm:text-lg">
-                LNCR <span className="text-cyan-400 font-normal">WEP_ANALYSIS</span>
+              <h1 className="font-extrabold text-slate-900 dark:text-slate-100 tracking-tight text-base sm:text-lg">
+                LNCR <span className="text-cyan-600 dark:text-cyan-400 font-bold">WEP_ANALYSIS</span>
               </h1>
-              <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-                v1.0 Free Cloudflare Edition
+              <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-cyan-100 dark:bg-cyan-500/10 text-cyan-800 dark:text-cyan-400 border border-cyan-300 dark:border-cyan-500/20">
+                v1.1 Free Cloudflare Edition
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 font-medium">
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
               Late Night Combat Robotics · Blade & Beater Bar MOI Analyzer
             </p>
           </div>
@@ -62,7 +58,6 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Action Controls */}
         <div className="flex items-center gap-2 flex-wrap">
-          {/* Hidden File Input */}
           <input
             ref={fileInputRef}
             type="file"
@@ -78,7 +73,7 @@ export const Header: React.FC<HeaderProps> = ({
               if (sample) onSampleSelect(sample);
             }}
             defaultValue=""
-            className="bg-slate-800/90 hover:bg-slate-800 text-slate-200 text-xs px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-cyan-500 cursor-pointer"
+            className="bg-slate-100 dark:bg-slate-800/90 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 cursor-pointer font-medium"
           >
             <option value="" disabled>
               ⚡ Load Sample Weapon...
@@ -94,7 +89,7 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={isLoading}
-            className="flex items-center gap-1.5 px-3.5 py-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs rounded-lg shadow-lg shadow-cyan-500/20 transition-all disabled:opacity-50"
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs rounded-xl shadow-md shadow-cyan-600/20 transition-all disabled:opacity-50"
           >
             <Upload size={14} />
             <span>{isLoading ? 'Processing CAD...' : 'Upload .STEP File'}</span>
@@ -103,7 +98,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Export Report */}
           <button
             onClick={onExportReport}
-            className="flex items-center gap-1.5 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-lg border border-slate-700 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 transition-colors"
             title="Export Engineering Report"
           >
             <Download size={14} />
@@ -113,7 +108,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Help / Guide */}
           <button
             onClick={onOpenHelp}
-            className="p-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800 rounded-lg transition-colors"
+            className="p-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors"
             title="Help & Combat Robotics Reference"
           >
             <HelpCircle size={18} />

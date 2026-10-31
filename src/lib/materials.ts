@@ -8,8 +8,8 @@ export const MATERIAL_PRESETS: MaterialPreset[] = [
     densityGPerCm3: 7.85,
     description: 'High-toughness combat robotics steel (AR400/500, S7 tool steel, 4140 chromoly, mild steel). Density: 7.85 g/cm³ (0.2836 lb/in³).',
     appearance: {
-      color: '#475569',
-      metalness: 0.85,
+      color: '#cbd5e1', // Clean light silver-grey
+      metalness: 0.55,
       roughness: 0.35,
     },
   },
@@ -20,9 +20,9 @@ export const MATERIAL_PRESETS: MaterialPreset[] = [
     densityGPerCm3: 2.70,
     description: 'Structural 6000-series aluminum (6061-T6). High machinability, standard for weapon hubs, pulleys, and beaters. Density: 2.70 g/cm³ (0.0975 lb/in³).',
     appearance: {
-      color: '#cbd5e1',
-      metalness: 0.8,
-      roughness: 0.3,
+      color: '#e2e8f0', // Bright metallic aluminum
+      metalness: 0.45,
+      roughness: 0.25,
     },
   },
   {
@@ -32,8 +32,8 @@ export const MATERIAL_PRESETS: MaterialPreset[] = [
     densityGPerCm3: 4.43,
     description: 'Grade 5 Titanium (Ti-6Al-4V). Superior strength-to-weight ratio, ~40% lighter than steel. Density: 4.43 g/cm³ (0.1600 lb/in³).',
     appearance: {
-      color: '#93c5fd',
-      metalness: 0.9,
+      color: '#bfdbfe', // Light titanium metallic
+      metalness: 0.55,
       roughness: 0.25,
     },
   },

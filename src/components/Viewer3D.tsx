@@ -120,18 +120,21 @@ export const Viewer3D: React.FC<Viewer3DProps> = ({
     rendererRef.current = renderer;
 
     // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.95);
     scene.add(ambientLight);
 
-    const dirLight1 = new THREE.DirectionalLight(0xffffff, 1.5);
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x64748b, 0.75);
+    scene.add(hemiLight);
+
+    const dirLight1 = new THREE.DirectionalLight(0xffffff, 1.6);
     dirLight1.position.set(200, 300, 250);
     scene.add(dirLight1);
 
-    const dirLight2 = new THREE.DirectionalLight(0x38bdf8, 0.9); // Cyan rim light
+    const dirLight2 = new THREE.DirectionalLight(0x38bdf8, 0.7); // Soft cyan rim light
     dirLight2.position.set(-200, -100, -200);
     scene.add(dirLight2);
 
-    const dirLight3 = new THREE.DirectionalLight(0xf59e0b, 0.4);
+    const dirLight3 = new THREE.DirectionalLight(0xffffff, 0.5);
     dirLight3.position.set(100, -200, 100);
     scene.add(dirLight3);
 

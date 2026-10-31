@@ -31,9 +31,8 @@ if exist "%GDRIVE_REPO%" (
     copy /y "%LOCAL_REPO%\tsconfig.json" "%GDRIVE_REPO%\tsconfig.json" >nul 2>nul
     copy /y "%LOCAL_REPO%\vite.config.ts" "%GDRIVE_REPO%\vite.config.ts" >nul 2>nul
     copy /y "%LOCAL_REPO%\index.html" "%GDRIVE_REPO%\index.html" >nul 2>nul
-    copy /y "%LOCAL_REPO%\start_or_reset.bat" "%GDRIVE_REPO%\start_or_reset.bat" >nul 2>nul
-    copy /y "%LOCAL_REPO%\build_dist.bat" "%GDRIVE_REPO%\build_dist.bat" >nul 2>nul
-    echo [DONE] Production bundle is ready at: %GDRIVE_REPO%\dist
+    copy /y "%CURRENT_DIR%\start_or_reset.bat" "%LOCAL_REPO%\start_or_reset.bat" >nul 2>nul
+    echo [DONE] Production bundle is ready at %GDRIVE_REPO%\dist
 )
 
 echo.

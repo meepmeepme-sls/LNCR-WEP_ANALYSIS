@@ -47,7 +47,7 @@ export const App: React.FC = () => {
 
   // App model & calculation state
   const [bodies, setBodies] = useState<MeshBodyData[]>([]);
-  const [material, setMaterial] = useState<MaterialPreset>(MATERIAL_PRESETS[0]); // AR500
+  const [material, setMaterial] = useState<MaterialPreset>(MATERIAL_PRESETS[0]); // Steel (7.85 g/cm³)
   const [axis, setAxis] = useState<AxisConfig>({
     name: 'Center of Mass (COM)',
     origin: { x: 0, y: 0, z: 0 },
@@ -80,9 +80,13 @@ export const App: React.FC = () => {
     if (isDarkMode) {
       root.classList.add('dark');
       root.classList.remove('light');
+      document.body.classList.add('dark');
+      document.body.classList.remove('light');
     } else {
       root.classList.remove('dark');
       root.classList.add('light');
+      document.body.classList.remove('dark');
+      document.body.classList.add('light');
     }
   }, [isDarkMode]);
 
@@ -277,6 +281,12 @@ export const App: React.FC = () => {
             axis={axis}
             analysis={analysis}
             onAxisOriginChange={handleAxisOriginChange}
+            onToggleSpinDirection={() => {
+              setAxis((prev) => ({
+                ...prev,
+                spinReversed: !prev.spinReversed,
+              }));
+            }}
             targetRpm={targetRpm}
             isDarkMode={isDarkMode}
           />

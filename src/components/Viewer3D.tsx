@@ -16,6 +16,7 @@ import {
   Pause,
   Play,
   RotateCcw,
+  RotateCw,
   Sparkles,
   Zap,
 } from 'lucide-react';
@@ -26,6 +27,7 @@ interface Viewer3DProps {
   axis: AxisConfig;
   analysis: WeaponAnalysisResult | null;
   onAxisOriginChange?: (origin: Vector3D) => void;
+  onToggleSpinDirection?: () => void;
   targetRpm: number;
   isDarkMode: boolean;
 }
@@ -36,6 +38,7 @@ export const Viewer3D: React.FC<Viewer3DProps> = ({
   axis,
   analysis,
   onAxisOriginChange,
+  onToggleSpinDirection,
   targetRpm,
   isDarkMode,
 }) => {
@@ -184,7 +187,8 @@ export const Viewer3D: React.FC<Viewer3DProps> = ({
       if (weaponPivotRef.current && isPlayingRef.current && targetRpmRef.current > 0) {
         const currAxis = axisRef.current;
         const visualSpeed = Math.min(30, (targetRpmRef.current / 2000) * 4) * spinSpeedFactorRef.current;
-        const spinDirection = currAxis.spinReversed ? -1 : 1;
+        // Flip default direction of spin: normal is -1, reversed is 1
+        const spinDirection = currAxis.spinReversed ? 1 : -1;
         const angleDelta = delta * visualSpeed * spinDirection;
 
         // Weapon axis vector
@@ -726,6 +730,20 @@ export const Viewer3D: React.FC<Viewer3DProps> = ({
         >
           {isPlaying ? <Pause size={16} /> : <Play size={16} className="fill-current" />}
         </button>
+
+        {onToggleSpinDirection && (
+          <button
+            onClick={onToggleSpinDirection}
+            className={`p-2 rounded-xl font-medium transition-all flex items-center justify-center border ${
+              axis.spinReversed
+                ? 'bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-300 dark:border-amber-500/30'
+                : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700'
+            }`}
+            title={axis.spinReversed ? 'Spin Reversed (Click to flip to Default)' : 'Spin Default (Click to flip to Reversed)'}
+          >
+            <RotateCw size={15} className={`transition-transform duration-200 ${axis.spinReversed ? 'rotate-180 text-amber-500' : ''}`} />
+          </button>
+        )}
 
         <div className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300">
           <span className="font-mono text-cyan-700 dark:text-cyan-400 font-bold">{targetRpm.toLocaleString()} RPM</span>

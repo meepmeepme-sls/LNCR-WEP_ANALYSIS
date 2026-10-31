@@ -127,3 +127,11 @@ export interface SampleModel {
   description: string;
   url: string;
 }
+
+export interface PowertrainConfig {
+  cellCount: number; // 2S to 16S
+  cellVoltage: number; // Volts per cell (default 3.7V nominal)
+  motorKv: number; // Motor velocity constant (RPM/V)
+  driver: number; // Driver pulley or gear (allows decimal)
+  driven: number; // Driven pulley or gear (allows decimal)
+}

@@ -112,7 +112,7 @@ export const AxisControls: React.FC<AxisControlsProps> = ({
           title="Toggle Clockwise / Counter-Clockwise Rotation"
         >
           <RotateCw size={12} className={axis.spinReversed ? 'rotate-180' : ''} />
-          <span>{axis.spinReversed ? 'CW (Reversed)' : 'CCW (Normal)'}</span>
+          <span>{axis.spinReversed ? 'Reversed Direction' : 'Default Direction'}</span>
         </button>
       </div>
 

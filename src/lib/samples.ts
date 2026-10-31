@@ -7,7 +7,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
     filename: '6_inch_av_bar.step',
     weaponType: 'anti_vert_bar',
     weightClass: '3 lb Beetleweight',
-    defaultMaterialId: 's7',
+    defaultMaterialId: 'steel',
     defaultAxis: {
       name: '⚡ Center of Mass (COM) - X-Axis',
       origin: { x: 0, y: 0, z: 0 },
@@ -24,7 +24,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
     filename: '6_inch_bar_v4hub.step',
     weaponType: 'spinner_bar',
     weightClass: '3 lb Beetleweight',
-    defaultMaterialId: 'ar500',
+    defaultMaterialId: 'steel',
     defaultAxis: {
       name: '⚡ Center of Mass (COM) - X-Axis',
       origin: { x: -5.86, y: 74.20, z: 47.50 },
@@ -41,7 +41,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
     filename: 'sawmill_blade_dud.step',
     weaponType: 'spinner_bar',
     weightClass: '1 lb Antweight',
-    defaultMaterialId: 'ar500',
+    defaultMaterialId: 'steel',
     defaultAxis: {
       name: '⚡ Center of Mass (COM) - Z-Axis',
       origin: { x: -49.25, y: 45.78, z: 19.63 },
@@ -58,7 +58,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
     filename: 'hubmotor_drum.step',
     weaponType: 'beater_bar',
     weightClass: '1 lb Antweight',
-    defaultMaterialId: '4140',
+    defaultMaterialId: 'steel',
     defaultAxis: {
       name: '⚡ Center of Mass (COM) - X-Axis',
       origin: { x: -31.45, y: -41.52, z: 57.26 },

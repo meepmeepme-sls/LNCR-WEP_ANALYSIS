@@ -2,11 +2,12 @@
 ### Combat Robotics Weapon MOI, Tip Speed & Dynamics Analyzer
 *Developed for Late Night Combat Robotics · Engineered for BattleBots, NHRL & Robot Combat Builders*
 
+[![GitHub Repository](https://img.shields.io/badge/GitHub-meepmeepme--sls%2FLNCR--WEP__ANALYSIS-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/meepmeepme-sls/LNCR-WEP_ANALYSIS)
 [![Cloudflare Pages](https://img.shields.io/badge/Deploy-Cloudflare%20Pages-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)](https://pages.cloudflare.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-38bdf8?style=for-the-badge)](LICENSE)
 [![Built with React](https://img.shields.io/badge/Built%20with-React%2019%20%2B%20Three.js-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
 
-A modern, responsive, 100% free-to-host web application designed for combat robotics engineers to upload `.step` or `.stp` CAD models of spinning blades, beater bars, or drums, preview the weapon with its rotation axis, specify materials, and calculate exact Moment of Inertia (MOI), Tip Speed, Stored Kinetic Energy, and dynamic balance.
+A modern, responsive, 100% free-to-host web application designed for combat robotics engineers to upload `.step` or `.stp` CAD models of spinning blades, beater bars, or drums, preview the weapon with its rotation axis, specify materials, and calculate exact Moment of Inertia (MOI), Tip Speed, Stored Kinetic Energy, dynamic balance, and electrical powertrain drive ratios.
 
 ---
 
@@ -14,7 +15,7 @@ A modern, responsive, 100% free-to-host web application designed for combat robo
 
 - **Browser-Side STEP File Parsing**:
   - Drag & drop or upload `.step` / `.stp` files directly in your web browser.
-  - Powered by **OpenCASCADE WebAssembly (WASM)** (`occt-import-js`) — runs 100% locally on your machine with zero server costs, zero upload delays, and complete CAD privacy.
+  - Powered by **OpenCASCADE WebAssembly (WASM)** (`occt-import-js`) offloaded to a Web Worker — runs 100% locally on your machine with zero server costs, zero upload delays, and complete CAD privacy.
 
 - **Exact Mass & MOI Integration**:
   - Implements the exact **Divergence Theorem** (polyhedral tetrahedral boundary integration) over triangular faces.
@@ -24,37 +25,42 @@ A modern, responsive, 100% free-to-host web application designed for combat robo
   - Instant unit switching: $\text{lb}\cdot\text{in}^2$, $\text{oz}\cdot\text{in}^2$, $\text{kg}\cdot\text{m}^2$ (SI), $\text{g}\cdot\text{cm}^2$, and $\text{lb}\cdot\text{ft}^2$ with 1-click clipboard copy.
 
 - **Interactive 3D Viewport**:
-  - High-performance Three.js renderer with realistic metallic PBR materials (Steel, Titanium, Aluminum, Clear Polycarbonate).
-  - **Rotation Axle Visualizer**: Glowing cyan axle rod with reference line and circular spin direction arrow (CW / CCW).
+  - High-performance Three.js renderer with realistic metallic PBR materials and hemisphere lighting.
+  - **Center of Mass (COM) Rotation Pivot**: The weapon rotates directly around its true Center of Mass or selected shaft centerline.
+  - **Rotation Direction & Controls**: Invert rotation direction (CW / CCW) on the fly with a single click.
+  - **Rotation Axle Visualizer**: Glowing cyan axle rod with reference line and bearing collars.
   - **Live 3D Spinning Animation**: Watch your weapon spin around its configured axis with play/pause and visual speed controls.
   - **Center of Mass (COM) Target**: Neon green marker with coordinates tooltip.
-  - **Tip Sweep Perimeter**: Cutting circle/disc indicating the outer sweep radius of the teeth.
+  - **Tip Sweep Perimeter**: Cutting circle indicating the outer sweep radius of the teeth.
   - **Static Imbalance Warning Line**: If the weapon is eccentric, a bright red indicator shows the offset distance between the COM and the rotation axle.
   - **Pick Axle Point Tool**: Click directly on any surface or bore hole in the 3D model to relocate the axle origin.
   - Preset camera angles (ISO, Top, Front, Right) and PNG screenshot capture.
 
-- **Weapon Materials Library**:
-  - **Steels**: AR500 / AR400 Armor Steel ($7.85 \text{ g/cm}^3$), S7 Shock Tool Steel ($7.83 \text{ g/cm}^3$), 4140 Chromoly Steel ($7.85 \text{ g/cm}^3$), Mild Steel A36 ($7.85 \text{ g/cm}^3$).
-  - **Titaniums**: Titanium Grade 5 Ti-6Al-4V ($4.43 \text{ g/cm}^3$), Titanium Grade 2 CP ($4.51 \text{ g/cm}^3$).
-  - **Aluminums**: Aluminum 7075-T6 ($2.81 \text{ g/cm}^3$), Aluminum 6061-T6 ($2.70 \text{ g/cm}^3$).
-  - **Polymers & 3D Prints**: Polycarbonate / Lexan ($1.20 \text{ g/cm}^3$), UHMW-PE ($0.94 \text{ g/cm}^3$), TPU 95A ($1.21 \text{ g/cm}^3$ with adjustable 20%–100% infill density slider), CF-Nylon / Onyx ($1.15 \text{ g/cm}^3$).
-  - **Custom Material**: Enter any custom density in $\text{g/cm}^3$ or $\text{lb/in}^3$.
+- **Combat Robotics Materials**:
+  - **Steel** ($7.85 \text{ g/cm}^3$ / $0.2836 \text{ lb/in}^3$): AR400/500 armor steel, S7 shock tool steel, 4140 chromoly, mild steel.
+  - **Aluminum 6000 Series Alloy** ($2.70 \text{ g/cm}^3$ / $0.0975 \text{ lb/in}^3$): Structural 6061-T6 aluminum for weapon hubs, pulleys, and beaters.
+  - **GR5 Titanium** ($4.43 \text{ g/cm}^3$ / $0.1600 \text{ lb/in}^3$): Grade 5 Titanium (Ti-6Al-4V) for high strength-to-weight applications.
+
+- **Dual-Mode Speed & Powertrain Calculator**:
+  - **Direct RPM Mode**: Slider and numerical entry up to 40,000 RPM with quick presets (5k, 8k, 10k, 12k, 16k).
+  - **Powertrain Calculator Mode**:
+    - **Battery Voltage**: Selectable from **2S to 16S** ($7.4\text{V}$ to $59.2\text{V}$) with a toggle for **Nominal (3.7V)** vs. **Full Charge (4.2V)**.
+    - **Motor KV Field**: Direct numeric input with presets (1400kv, 1800kv, 2200kv, 2700kv, 3500kv).
+    - **External Reduction Ratio**: Dedicated **Driver** and **Driven** input fields with decimal support (e.g. 14.5 driver to 60.2 driven), automatically computing ratio ($\text{Driven}/\text{Driver}$) and resulting weapon RPM.
 
 - **Combat Robotics Dynamics Telemetry**:
-  - **Target RPM Slider & Presets**: Configurable from 1,000 to 25,000 RPM.
   - **Stored Kinetic Energy ($KE = \frac{1}{2} I \omega^2$)**: Real-time display in Joules ($\text{J}$) and Foot-Pounds ($\text{ft}\cdot\text{lbf}$) with weight class benchmark scales (Fairyweight to Heavyweight).
   - **Tip Speed ($v = \omega R_{\text{tip}}$)**: Display in $\text{mph}$ and $\text{m/s}$ with **BattleBots 250 mph rule checker** alert.
   - **Static & Dynamic Balance Check**: Calculates static eccentricity ($e$) and bearing centrifugal force ($F = M \cdot e \cdot \omega^2$ in lbf and Newtons) to predict vibration and gyro instability.
 
-- **Export & Reporting**:
-  - Full Engineering Text Summary Report.
-  - JSON Data Export for combat robotics logs and simulation.
-  - Printable / PDF-ready view.
-  - High-res PNG snapshot from 3D viewport.
+- **User Interface**:
+  - **Results Tab**: Comprehensive MOI, Tip Speed, Kinetic Energy, and Dynamic Balance dashboard.
+  - **Setup Tab (Minimizable Window)**: Quick collapse/expand window for rotation axis and material selection.
+  - **Site-Wide Light / Dark Mode**: Default crisp light mode with instant theme switcher in the footer.
 
 - **Pre-Loaded Sample Models**:
-  - 6" Beetleweight Spinner Bar (Symmetric 4-bolt hub)
   - 6" Anti-Vertical Tool Steel Weapon Bar (Asymmetric single-bite tooth)
+  - 1lb Hubmotor Drum Assembly (25 Bodies, direct-drive hubmotor weapon)
 
 ---
 
@@ -62,10 +68,10 @@ A modern, responsive, 100% free-to-host web application designed for combat robo
 
 Because **LNCR-WEP_ANALYSIS** is built as a pure client-side static Single Page Application (SPA) using WebAssembly, it requires **zero backend servers or databases**. You can host it 100% free forever on **Cloudflare Pages** with unlimited bandwidth, global SSL, and lightning-fast edge CDN caching.
 
-### Option 1: GitHub / Git Integration (Recommended)
-1. Push this repository to your GitHub account:
+### Option 1: GitHub Integration (Recommended)
+1. Fork or push to GitHub:
    ```bash
-   git remote add origin https://github.com/YOUR_USERNAME/LNCR-WEP_ANALYSIS.git
+   git remote add origin https://github.com/meepmeepme-sls/LNCR-WEP_ANALYSIS.git
    git branch -M main
    git push -u origin main
    ```
@@ -86,14 +92,6 @@ If you don't want to connect Git:
 3. Name your project (e.g. `lncr-wep-analysis`).
 4. Drag and drop the `dist` folder into the upload box and click **Deploy Site**.
 5. Your app is immediately live on the web!
-
----
-
-### Option 3: Deploy via Wrangler CLI
-```bash
-npm install -g wrangler
-wrangler pages deploy dist --project-name lncr-wep-analysis
-```
 
 ---
 

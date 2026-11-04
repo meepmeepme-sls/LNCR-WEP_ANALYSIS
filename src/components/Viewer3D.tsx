@@ -54,7 +54,7 @@ export const Viewer3D: React.FC<Viewer3DProps> = ({
   const [showComMarker, setShowComMarker] = useState<boolean>(true);
   const [showAxisLine, setShowAxisLine] = useState<boolean>(true);
   const [isPickMode, setIsPickMode] = useState<boolean>(false);
-  const [spinSpeedFactor, setSpinSpeedFactor] = useState<number>(1.0);
+  const [spinSpeedFactor, setSpinSpeedFactor] = useState<number>(0.25); // Default to low preview speed so blade is easy to inspect
 
   // Live mutable refs to eliminate stale closure bugs in requestAnimationFrame
   const axisRef = useRef<AxisConfig>(axis);
@@ -191,7 +191,9 @@ export const Viewer3D: React.FC<Viewer3DProps> = ({
       // Spin the weapon around the specified axis if playing
       if (weaponPivotRef.current && isPlayingRef.current && targetRpmRef.current > 0) {
         const currAxis = axisRef.current;
-        const visualSpeed = Math.min(30, (targetRpmRef.current / 2000) * 4) * spinSpeedFactorRef.current;
+        // Low preview speed scaling so blade geometry, teeth, and axle balance are clear and easy to see
+        const baseVisualSpeed = Math.min(4.0, Math.max(1.2, (targetRpmRef.current / 10000) * 2.0));
+        const visualSpeed = baseVisualSpeed * spinSpeedFactorRef.current;
         // Flip default direction of spin: normal is -1, reversed is 1
         const spinDirection = currAxis.spinReversed ? 1 : -1;
         const angleDelta = delta * visualSpeed * spinDirection;
@@ -754,19 +756,40 @@ export const Viewer3D: React.FC<Viewer3DProps> = ({
           </button>
         )}
 
-        <div className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300">
+        <div className="flex items-center gap-1.5 text-xs text-slate-700 dark:text-slate-300">
           <span className="font-mono text-cyan-700 dark:text-cyan-400 font-bold">{targetRpm.toLocaleString()} RPM</span>
           <span className="text-slate-300 dark:text-slate-600">|</span>
           <span className="text-slate-500 dark:text-slate-400">Preview:</span>
+          <div className="flex items-center gap-1">
+            {[
+              { label: 'Low', val: 0.25, title: 'Low speed (easy to see blade teeth & rotation)' },
+              { label: 'Med', val: 0.6, title: 'Medium preview speed' },
+              { label: 'Fast', val: 1.2, title: 'Fast preview speed' },
+            ].map((p) => (
+              <button
+                key={p.val}
+                type="button"
+                onClick={() => setSpinSpeedFactor(p.val)}
+                className={`px-1.5 py-0.5 rounded text-[10px] font-bold transition-all ${
+                  Math.abs(spinSpeedFactor - p.val) < 0.05
+                    ? 'bg-cyan-600 dark:bg-cyan-500 text-white dark:text-slate-950 shadow-xs'
+                    : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300'
+                }`}
+                title={p.title}
+              >
+                {p.label}
+              </button>
+            ))}
+          </div>
           <input
             type="range"
-            min="0.2"
-            max="3"
-            step="0.1"
+            min="0.05"
+            max="2.0"
+            step="0.05"
             value={spinSpeedFactor}
             onChange={(e) => setSpinSpeedFactor(parseFloat(e.target.value))}
-            className="w-20 accent-cyan-600 dark:accent-cyan-500 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg cursor-pointer"
-            title="Adjust Visual Spin Animation Speed"
+            className="w-16 accent-cyan-600 dark:accent-cyan-500 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg cursor-pointer ml-1"
+            title={`Fine-tune Visual Spin Speed: ${(spinSpeedFactor * 100).toFixed(0)}%`}
           />
         </div>
 

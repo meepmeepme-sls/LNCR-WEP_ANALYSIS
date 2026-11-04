@@ -101,7 +101,9 @@ export const App: React.FC = () => {
   const [bestAxis, setBestAxis] = useState<AxisConfig | null>(null);
   const [classification, setClassification] = useState<WeaponClassification | null>(null);
   const [detectedBores, setDetectedBores] = useState<DetectedBore[]>([]);
-  const [targetRpm, setTargetRpm] = useState<number>(9000);
+  // Default startup model: 6" Beetle Blade Type 2 at 4S 800KV (11,840 RPM, 1:1 ratio)
+  const defaultSample = SAMPLE_MODELS.find((s) => s.id === 'beetle-blade-600-2') || SAMPLE_MODELS[0];
+  const [targetRpm, setTargetRpm] = useState<number>(11840);
   const [analysis, setAnalysis] = useState<WeaponAnalysisResult | null>(null);
 
   // UI tabs & windows
@@ -112,7 +114,7 @@ export const App: React.FC = () => {
   const [loadingStage, setLoadingStage] = useState<string>('Initializing WebAssembly CAD Engine...');
   const [loadingPercent, setLoadingPercent] = useState<number>(10);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [currentFilename, setCurrentFilename] = useState<string>('Blade_2.5-1.step');
+  const [currentFilename, setCurrentFilename] = useState<string>(defaultSample.filename);
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
   const [isHelpOpen, setIsHelpOpen] = useState<boolean>(false);
   const [isExportOpen, setIsExportOpen] = useState<boolean>(false);
@@ -133,9 +135,9 @@ export const App: React.FC = () => {
     }
   }, [isDarkMode]);
 
-  // Load initial sample model on startup
+  // Load initial default sample model (6" Beetle Blade Type 2) on startup
   useEffect(() => {
-    loadSample(SAMPLE_MODELS[0]);
+    loadSample(defaultSample);
   }, []);
 
   // Recalculate analysis whenever bodies, material, axis, or target RPM changes

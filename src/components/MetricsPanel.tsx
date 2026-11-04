@@ -38,12 +38,12 @@ export const MetricsPanel: React.FC<MetricsPanelProps> = ({
   // Speed Input Mode: 'direct' vs 'powertrain'
   const [speedInputMode, setSpeedInputMode] = useState<'direct' | 'powertrain'>('direct');
 
-  // Powertrain Parameters
-  const [cellCount, setCellCount] = useState<number>(4); // Range: 2S to 16S
+  // Powertrain Parameters (Defaults: 4S, 800KV, 1:1 ratio)
+  const [cellCount, setCellCount] = useState<number>(4); // Default 4S (Range: 2S to 16S)
   const [cellVoltageMode, setCellVoltageMode] = useState<'nominal' | 'charged'>('nominal');
-  const [motorKv, setMotorKv] = useState<number>(2200);
-  const [driverTeeth, setDriverTeeth] = useState<number>(15);
-  const [drivenTeeth, setDrivenTeeth] = useState<number>(45);
+  const [motorKv, setMotorKv] = useState<number>(800); // Default 800KV (Repeat 2812 Hubmotor)
+  const [driverTeeth, setDriverTeeth] = useState<number>(1); // Default 1:1 ratio
+  const [drivenTeeth, setDrivenTeeth] = useState<number>(1);
 
   const cellVoltage = cellVoltageMode === 'nominal' ? 3.7 : 4.2;
   const totalBatteryVoltage = cellCount * cellVoltage;
@@ -341,31 +341,44 @@ export const MetricsPanel: React.FC<MetricsPanelProps> = ({
                   max="10000"
                   value={motorKv}
                   onChange={(e) => setMotorKv(Math.max(1, parseInt(e.target.value) || 0))}
-                  placeholder="2200"
+                  placeholder="800"
                   className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1.5 text-xs font-mono font-bold text-slate-900 dark:text-slate-100 focus:outline-none focus:border-amber-500"
                 />
               </div>
 
-              {/* Quick KV Presets */}
-              <div className="flex items-center gap-1">
-                {[1400, 1800, 2200, 2700, 3500].map((kv) => (
-                  <button
-                    key={kv}
-                    type="button"
-                    onClick={() => setMotorKv(kv)}
-                    className={`flex-1 py-0.5 rounded text-[10px] font-mono transition-colors font-semibold ${
-                      motorKv === kv
-                        ? 'bg-amber-100 dark:bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-500/40'
-                        : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                    }`}
-                  >
-                    {kv}kv
-                  </button>
-                ))}
+              {/* Quick Repeat Robotics 2207 & 2812 Hubmotor KV Presets */}
+              <div className="space-y-1">
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium block">
+                  Repeat Robotics Hubmotor Presets:
+                </span>
+                <div className="grid grid-cols-5 gap-1">
+                  {[
+                    { kv: 800, label: '800kv', sub: '2812 Hub' },
+                    { kv: 1200, label: '1200kv', sub: '2207 Hub' },
+                    { kv: 1300, label: '1300kv', sub: '2812 Hub' },
+                    { kv: 1800, label: '1800kv', sub: '2207 / 2812' },
+                    { kv: 2400, label: '2400kv', sub: '2207 Hub' },
+                  ].map((preset) => (
+                    <button
+                      key={preset.kv}
+                      type="button"
+                      onClick={() => setMotorKv(preset.kv)}
+                      className={`py-1 px-1 rounded-lg text-center transition-all ${
+                        motorKv === preset.kv
+                          ? 'bg-amber-100 dark:bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-500/40 shadow-xs'
+                          : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700/60'
+                      }`}
+                      title={`${preset.kv} KV (${preset.sub})`}
+                    >
+                      <span className="block font-mono font-bold text-[10px] leading-tight">{preset.label}</span>
+                      <span className="block text-[8px] opacity-75 leading-tight">{preset.sub}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* External Reduction Ratio (Driver & Driven fields with decimal input) */}
+            {/* External Reduction Ratio (Driver & Driven fields with decimal input, Default 1:1) */}
             <div className="bg-white dark:bg-slate-900/80 p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 space-y-1.5">
               <div className="flex items-center justify-between">
                 <label className="text-[11px] font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-1">
@@ -388,7 +401,7 @@ export const MetricsPanel: React.FC<MetricsPanelProps> = ({
                     min="0.1"
                     value={driverTeeth}
                     onChange={(e) => setDriverTeeth(parseFloat(e.target.value) || 0)}
-                    placeholder="15"
+                    placeholder="1"
                     className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1 text-xs font-mono font-bold text-slate-900 dark:text-slate-100 focus:outline-none focus:border-amber-500"
                   />
                 </div>
@@ -403,10 +416,36 @@ export const MetricsPanel: React.FC<MetricsPanelProps> = ({
                     min="0.1"
                     value={drivenTeeth}
                     onChange={(e) => setDrivenTeeth(parseFloat(e.target.value) || 0)}
-                    placeholder="45"
+                    placeholder="1"
                     className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1 text-xs font-mono font-bold text-slate-900 dark:text-slate-100 focus:outline-none focus:border-amber-500"
                   />
                 </div>
+              </div>
+
+              {/* Quick Ratio Presets */}
+              <div className="flex items-center gap-1 pt-0.5">
+                {[
+                  { driver: 1, driven: 1, label: '1:1 (Direct)' },
+                  { driver: 1, driven: 1.25, label: '1.25:1' },
+                  { driver: 1, driven: 1.5, label: '1.5:1' },
+                  { driver: 1, driven: 2.0, label: '2:1' },
+                ].map((r) => (
+                  <button
+                    key={r.label}
+                    type="button"
+                    onClick={() => {
+                      setDriverTeeth(r.driver);
+                      setDrivenTeeth(r.driven);
+                    }}
+                    className={`flex-1 py-0.5 rounded text-[10px] font-mono font-semibold transition-colors ${
+                      Math.abs(reductionRatio - (r.driven / r.driver)) < 0.01
+                        ? 'bg-emerald-100 dark:bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-500/40 shadow-xs'
+                        : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700/60'
+                    }`}
+                  >
+                    {r.label}
+                  </button>
+                ))}
               </div>
 
               <div className="text-[10px] text-slate-500 dark:text-slate-400 pt-0.5 flex justify-between font-mono">

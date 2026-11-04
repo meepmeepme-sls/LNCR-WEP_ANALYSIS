@@ -443,8 +443,8 @@ export const SAMPLE_MODELS: SampleModel[] = [
       direction: { x: 1, y: 0, z: 0 },
       spinReversed: false,
     },
-    defaultRpm: 8500,
-    description: 'Heavy 6.0mm 6.00" beetleweight spinner bar (5.3 oz).',
+    defaultRpm: 11840,
+    description: 'Heavy 6.0mm 6.00" beetleweight spinner bar (5.3 oz) powered by 4S 800KV at 1:1 direct drive.',
     url: './samples/Beetle_Blade_6.00-2.step',
   },
   {

@@ -79,14 +79,21 @@ export const Header: React.FC<HeaderProps> = ({
               ⚡ Load Default Blade ({SAMPLE_MODELS.length} Available)...
             </option>
             <optgroup label="Antweight Compact (2.50″ – 3.75″)">
-              {SAMPLE_MODELS.slice(0, 11).map((sample) => (
+              {SAMPLE_MODELS.filter((s) => s.weightClass === '1 lb Antweight' && !s.title.includes('4.') && !s.title.includes('5.') && !s.title.includes('6.')).map((sample) => (
                 <option key={sample.id} value={sample.id}>
                   {sample.title}
                 </option>
               ))}
             </optgroup>
             <optgroup label="Antweight Long-Reach (4.00″ – 6.00″)">
-              {SAMPLE_MODELS.slice(11).map((sample) => (
+              {SAMPLE_MODELS.filter((s) => s.weightClass === '1 lb Antweight' && (s.title.includes('4.') || s.title.includes('5.') || s.title.includes('6.'))).map((sample) => (
+                <option key={sample.id} value={sample.id}>
+                  {sample.title}
+                </option>
+              ))}
+            </optgroup>
+            <optgroup label="Beetleweight Blades (4.00″ – 8.00″)">
+              {SAMPLE_MODELS.filter((s) => s.weightClass === '3 lb Beetleweight').map((sample) => (
                 <option key={sample.id} value={sample.id}>
                   {sample.title}
                 </option>

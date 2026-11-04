@@ -58,9 +58,15 @@ A modern, responsive, 100% free-to-host web application designed for combat robo
   - **Setup Tab (Minimizable Window)**: Quick collapse/expand window for rotation axis and material selection.
   - **Site-Wide Light / Dark Mode**: Default crisp light mode with instant theme switcher in the footer.
 
-- **Pre-Loaded Default Blades Library (20 1lb Antweight Weapons)**:
+- **Pre-Loaded Default Blades Library (29 Weapons Across Antweight & Beetleweight)**:
   - **Antweight Compact (2.50″ to 3.75″)**: 2.50″ Type 1 & 2, 2.75″ Symmetric (`2.75Sym`), 2.75″ Single-Tooth (`2.75Bar`), 2.75″ High-MOI (`2.75MOI`), 2.75″ Type 1, 3.00″ Type 1 & 2, 3.25″ Type 1, 3.50″ Type 1, 3.75″ Type 1.
   - **Antweight Long-Reach (4.00″ to 6.00″)**: 4.00″ Type 1, 4.25″ Type 1, 4.50″ Type 1, 4.75″ Type 1, 5.00″ Type 1, 5.25″ Type 1, 5.50″ Type 1, 6.00″ Type 1 & 2.
+  - **Beetleweight Heavy Blades (4.00″ to 8.00″ / 3 lb Class)**:
+    - 4.00″ Beetle Blade Type 1 (6.0mm / 4.5 oz) & Type 2 (6.0mm / 4.0 oz)
+    - 5.00″ Beetle Blade Type 1 (6.35mm 1/4" / 7.8 oz) & Type 2 (6.0mm / 5.1 oz)
+    - 6.00″ Beetle Blade Type 1 (5.0mm / 7.6 oz) & Type 2 (6.0mm / 5.3 oz)
+    - 7.00″ Beetle Blade Type 1 (6.0mm / 7.7 oz) & Type 2 (6.0mm / 8.1 oz)
+    - 8.00″ Beetle Blade Type 1 (6.0mm / 10.3 oz maximum reach)
 
 - **2000s Frutiger Aero Mode (Kevin MacLeod "Cipher" Anthem)**:
   - Defaults cleanly to **Serious Mode** for focused engineering calculations.

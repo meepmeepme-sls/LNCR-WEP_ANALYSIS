@@ -62,6 +62,14 @@ A modern, responsive, 100% free-to-host web application designed for combat robo
   - **Antweight Compact (2.50″ to 3.75″)**: 2.50″ Type 1 & 2, 2.75″ Symmetric (`2.75Sym`), 2.75″ Single-Tooth (`2.75Bar`), 2.75″ High-MOI (`2.75MOI`), 2.75″ Type 1, 3.00″ Type 1 & 2, 3.25″ Type 1, 3.50″ Type 1, 3.75″ Type 1.
   - **Antweight Long-Reach (4.00″ to 6.00″)**: 4.00″ Type 1, 4.25″ Type 1, 4.50″ Type 1, 4.75″ Type 1, 5.00″ Type 1, 5.25″ Type 1, 5.50″ Type 1, 6.00″ Type 1 & 2.
 
+- **2000s Frutiger Aero Mode (Kevin MacLeod "Cipher" Anthem)**:
+  - Defaults cleanly to **Serious Mode** for focused engineering calculations.
+  - 1-click toggle on the side tab or in the footer to launch the **2000s Frutiger Aero aesthetic**.
+  - Seamless background loop of Kevin MacLeod's iconic web anthem **"Cipher"** (`cipher.mp3`) with integrated play/pause audio controller.
+  - Interactive retro **MySpace Profile Banner** with scrolling glitter marquee and real-time page views odometer.
+  - Draggable die-cut stickers (Safety Owl, Hawaii Hibiscus, Banzai Pipeline wave, Crescent Moon, Palm Island Orb, and Pipeline Owl Surfer) with synthesized boing & bubble sound effects on click/drag.
+  - Liquid aqua gel buttons, rising glassy bubbles, dolphin-owl surfing backdrop, and sparkle cursor trail.
+
 ---
 
 ## 🌐 How to Host for FREE on Cloudflare Pages

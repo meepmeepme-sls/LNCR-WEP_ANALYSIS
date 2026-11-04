@@ -1,0 +1,793 @@
+/**
+ * Late Night Combat Robotics — "Fruity" Frutiger Aero × 2000s MySpace skin.
+ *
+ * Purely presentational. Every rule is scoped under `html.fruity`, so removing that class
+ * (via the Aero toggle) restores the classic engineering theme exactly. The skin works by
+ * re-mapping the app's existing Tailwind colour tokens — no calculator component is modified.
+ */
+
+/* -------------------------------------------------------------------------- */
+/* Design tokens                                                              */
+/* -------------------------------------------------------------------------- */
+html.fruity {
+  --fa-ink: #06375c;
+  --fa-ink-soft: #3a6e90;
+  --fa-accent: #0a84c6;
+  --fa-num: #0577b8;
+  --fa-num-glow: 0 1px 0 #fff, 0 0 14px rgba(70, 200, 255, 0.55);
+  --fa-glass: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(232, 248, 255, 0.76) 50.5%, rgba(250, 254, 255, 0.84) 100%);
+  --fa-glass-border: rgba(255, 255, 255, 0.98);
+  --fa-shadow: 0 12px 30px -10px rgba(0, 70, 130, 0.38), 0 2px 6px rgba(0, 70, 130, 0.12), inset 0 1px 0 #fff;
+  --fa-panel: linear-gradient(180deg, rgba(236, 249, 255, 0.85), rgba(214, 240, 252, 0.7));
+  --fa-panel-border: rgba(100, 185, 228, 0.5);
+  --fa-field: linear-gradient(180deg, #eef9ff 0%, #ffffff 45%);
+  --fa-line: rgba(100, 185, 228, 0.45);
+  --fa-trough: linear-gradient(180deg, #cfeaf7 0%, #eaf8ff 100%);
+  --fa-btn: linear-gradient(180deg, #ffffff 0%, #eef8fd 48%, #d6edf9 52%, #eaf7fd 100%);
+  --fa-btn-border: rgba(90, 170, 215, 0.6);
+  --fa-gel: linear-gradient(180deg, #8ae6ff 0%, #36bdf4 47%, #0b94dc 53%, #2cc0f7 100%);
+  --fa-lime: linear-gradient(180deg, #dcff9a 0%, #93e23e 47%, #5cbf12 53%, #8ade32 100%);
+  --fa-chrome: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(228, 247, 255, 0.86) 48%, rgba(184, 231, 252, 0.82) 52%, rgba(220, 245, 255, 0.9) 100%);
+}
+
+html.fruity.dark {
+  --fa-ink: #e2f8ff;
+  --fa-ink-soft: #8fd2ee;
+  --fa-accent: #5fe0ff;
+  --fa-num: #8ff3ff;
+  --fa-num-glow: 0 0 12px rgba(60, 220, 255, 0.75);
+  --fa-glass: linear-gradient(180deg, rgba(48, 104, 150, 0.82) 0%, rgba(16, 54, 92, 0.84) 50%, rgba(6, 32, 62, 0.88) 50.5%, rgba(10, 44, 78, 0.86) 100%);
+  --fa-glass-border: rgba(140, 220, 255, 0.3);
+  --fa-shadow: 0 12px 34px -8px rgba(0, 0, 0, 0.6), 0 0 24px -8px rgba(60, 200, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  --fa-panel: linear-gradient(180deg, rgba(8, 40, 74, 0.78), rgba(4, 26, 52, 0.78));
+  --fa-panel-border: rgba(120, 210, 255, 0.22);
+  --fa-field: linear-gradient(180deg, rgba(2, 18, 38, 0.97), rgba(6, 30, 58, 0.97));
+  --fa-line: rgba(120, 210, 255, 0.2);
+  --fa-trough: linear-gradient(180deg, rgba(0, 16, 34, 0.85), rgba(8, 36, 66, 0.8));
+  --fa-btn: linear-gradient(180deg, rgba(96, 156, 206, 0.55) 0%, rgba(40, 92, 142, 0.5) 48%, rgba(14, 50, 90, 0.65) 52%, rgba(30, 76, 122, 0.6) 100%);
+  --fa-btn-border: rgba(130, 215, 255, 0.35);
+  --fa-chrome: linear-gradient(180deg, rgba(52, 108, 152, 0.86) 0%, rgba(14, 50, 86, 0.88) 48%, rgba(3, 25, 50, 0.92) 52%, rgba(8, 40, 70, 0.9) 100%);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Typography, page & chrome                                                  */
+/* -------------------------------------------------------------------------- */
+html.fruity *,
+html.fruity *::before,
+html.fruity *::after {
+  font-family: 'Segoe UI', 'Trebuchet MS', 'Lucida Grande', Verdana, Tahoma, sans-serif !important;
+}
+
+html.fruity body {
+  background-color: #032a48;
+}
+html.fruity.dark body {
+  background-color: #010d1a;
+}
+
+html.fruity #root > div {
+  position: relative;
+  background: transparent !important;
+  color: var(--fa-ink);
+  overflow-x: clip;
+}
+
+html.fruity ::selection {
+  background: #7fe3ff;
+  color: #032f4e;
+}
+
+html.fruity header {
+  background: var(--fa-chrome) !important;
+  backdrop-filter: blur(14px) saturate(1.5);
+  border-bottom: 1px solid var(--fa-glass-border) !important;
+  box-shadow: 0 4px 18px rgba(0, 90, 150, 0.25), inset 0 -1px 0 rgba(80, 170, 220, 0.35);
+}
+html.fruity.dark header {
+  box-shadow: 0 4px 22px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(120, 220, 255, 0.25);
+}
+
+/* Glossy brand wordmark */
+html.fruity header a > span {
+  background: linear-gradient(180deg, #1fb0ee 0%, #0868b0 55%, #0a4f8f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.9));
+  font-style: italic;
+}
+html.fruity.dark header a > span {
+  background: linear-gradient(180deg, #ffffff 0%, #a8f0ff 50%, #43c9f5 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 6px rgba(80, 210, 255, 0.6));
+}
+html.fruity header a > span::after {
+  content: ' ✨';
+  -webkit-text-fill-color: initial;
+}
+html.fruity header a img {
+  border-radius: 10px !important;
+  box-shadow: 0 0 0 2px #fff, 0 2px 8px rgba(0, 90, 150, 0.45);
+}
+
+html.fruity footer {
+  background: var(--fa-chrome) !important;
+  backdrop-filter: blur(12px) saturate(1.4);
+  border-top: 1px solid var(--fa-glass-border) !important;
+  box-shadow: 0 -4px 16px rgba(0, 90, 150, 0.18);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Surfaces                                                                   */
+/* -------------------------------------------------------------------------- */
+html.fruity [class~='border-[#E2E8F0]'],
+html.fruity [class~='border-[#CBD5E1]'],
+html.fruity [class~='dark:border-[#2E3646]'],
+html.fruity [class~='dark:border-[#333C4D]'],
+html.fruity [class~='dark:border-[#2D333F]'] {
+  border-color: var(--fa-line) !important;
+}
+
+html.fruity [class~='border'] {
+  border-radius: 12px !important;
+}
+
+html.fruity [class*='rounded-none'],
+html.fruity [class*='rounded-'] {
+  border-radius: 14px !important;
+}
+
+html.fruity input,
+html.fruity select {
+  border-radius: 10px !important;
+}
+
+/* Main tool cards → glossy glass slabs.
+ * (No backdrop-filter here on purpose: it would create stacking contexts that clip
+ * preset dropdowns under the next card.) */
+html.fruity [class~='bg-white'][class~='dark:bg-[#1F232B]'] {
+  background: var(--fa-glass) !important;
+  border: 1px solid var(--fa-glass-border) !important;
+  box-shadow: var(--fa-shadow) !important;
+  border-radius: 18px !important;
+}
+
+/* Inner sub-panels */
+html.fruity [class~='bg-[#F8FAFC]'] {
+  background: var(--fa-panel) !important;
+  border-color: var(--fa-panel-border) !important;
+  border-radius: 14px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+/* Input wells, dropdown menus, glossary modal (kept opaque for legibility) */
+html.fruity [class~='bg-white'][class~='dark:bg-[#16181D]'] {
+  background: var(--fa-field) !important;
+  border-color: var(--fa-panel-border) !important;
+  box-shadow: inset 0 2px 4px rgba(0, 60, 110, 0.12) !important;
+}
+
+/* Segmented-control troughs */
+html.fruity [class~='bg-[#F1F5F9]'] {
+  background: var(--fa-trough) !important;
+}
+html.fruity [class~='bg-[#F1F5F9]'][class~='p-0.5'],
+html.fruity [class~='bg-[#F1F5F9]'][class~='p-1'] {
+  border-radius: 999px !important;
+  box-shadow: inset 0 1px 3px rgba(0, 50, 90, 0.22), 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+html.fruity [class~='focus-within:border-[#094AD8]']:focus-within,
+html.fruity [class~='focus:border-[#094AD8]']:focus {
+  border-color: #36bdf4 !important;
+  box-shadow: 0 0 0 3px rgba(80, 200, 255, 0.35), 0 0 14px rgba(80, 200, 255, 0.45) !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Buttons                                                                    */
+/* -------------------------------------------------------------------------- */
+html.fruity button[class] {
+  border-radius: 999px !important;
+  transition: filter 0.15s ease, box-shadow 0.15s ease, transform 0.08s ease;
+}
+html.fruity button[class~='w-full'] {
+  border-radius: 12px !important;
+}
+html.fruity button[class]:hover:not(:disabled) {
+  filter: brightness(1.06) saturate(1.1);
+}
+html.fruity button[class]:active:not(:disabled) {
+  filter: brightness(0.95);
+  transform: translateY(1px);
+}
+
+/* Neutral pill buttons → white Aero gloss */
+html.fruity button[class~='bg-white'],
+html.fruity button[class~='bg-[#F8FAFC]'],
+html.fruity button[class~='bg-[#F1F5F9]'] {
+  background: var(--fa-btn) !important;
+  border: 1px solid var(--fa-btn-border) !important;
+  color: var(--fa-ink) !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 1px 3px rgba(0, 60, 110, 0.18) !important;
+}
+html.fruity.dark button[class~='bg-white'],
+html.fruity.dark button[class~='bg-[#F8FAFC]'],
+html.fruity.dark button[class~='bg-[#F1F5F9]'] {
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 1px 4px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Active / primary → aqua gel */
+html.fruity button[class~='bg-[#094AD8]'],
+html.fruity button[class~='bg-white'][class~='text-[#094AD8]'],
+html.fruity.dark button[class~='dark:bg-[#094AD8]'],
+html.fruity [class~='bg-[#094AD8]']:not(button) {
+  background: var(--fa-gel) !important;
+  color: #fff !important;
+  border: 1px solid #0a7fc2 !important;
+  border-radius: 999px !important;
+  text-shadow: 0 1px 1px rgba(0, 50, 100, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), inset 0 -3px 6px rgba(120, 240, 255, 0.55), 0 2px 8px rgba(0, 120, 200, 0.4) !important;
+}
+
+/* Export CSV → lime gel, the other iconic Aero colour */
+html.fruity button[title='Download CSV performance report'] {
+  background: var(--fa-lime) !important;
+  border: 1px solid #4a9e10 !important;
+  color: #fff !important;
+  text-shadow: 0 1px 1px rgba(30, 80, 0, 0.6);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 2px 8px rgba(70, 160, 20, 0.45) !important;
+}
+
+/* Toggle switches → glossy orb on a trough; lime when ON */
+html.fruity [role='switch'] {
+  border-radius: 999px !important;
+}
+html.fruity [role='switch'][class~='bg-[#CBD5E1]'] {
+  background: var(--fa-trough) !important;
+  box-shadow: inset 0 1px 3px rgba(0, 50, 90, 0.3) !important;
+}
+html.fruity [role='switch'][class~='bg-[#094AD8]'] {
+  background: var(--fa-lime) !important;
+  border-color: #4a9e10 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 0 10px rgba(130, 230, 60, 0.55) !important;
+}
+html.fruity [role='switch'] > span {
+  border-radius: 999px !important;
+  background: radial-gradient(circle at 35% 30%, #fff 0 30%, #e3f4fc 60%, #b9def0 100%) !important;
+  box-shadow: 0 1px 3px rgba(0, 40, 80, 0.45), inset 0 -1px 2px rgba(0, 80, 140, 0.25) !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Text                                                                       */
+/* -------------------------------------------------------------------------- */
+html.fruity [class~='text-[#0F172A]'],
+html.fruity [class~='text-[#1E293B]'],
+html.fruity [class~='text-[#334155]'] {
+  color: var(--fa-ink) !important;
+}
+html.fruity [class~='text-[#64748B]'],
+html.fruity [class~='text-[#475569]'],
+html.fruity [class~='text-[#94A3B8]'] {
+  color: var(--fa-ink-soft) !important;
+}
+html.fruity [class~='text-[#094AD8]'],
+html.fruity [class~='dark:text-[#60A5FA]'] {
+  color: var(--fa-accent) !important;
+}
+
+/* MySpace-style profile section headers on every tool card */
+html.fruity main h3 {
+  display: inline-block;
+  padding: 3px 12px 4px;
+  border-radius: 999px !important;
+  border: 1px solid #4f9f1c;
+  background: var(--fa-lime);
+  color: #fff !important;
+  text-shadow: 0 1px 1px rgba(30, 80, 0, 0.6);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 1px 4px rgba(40, 110, 0, 0.35);
+}
+html.fruity main h3::before {
+  content: '✧ ';
+}
+html.fruity main h3::after {
+  content: ' ✧';
+}
+
+/* Hero numbers glow like a Vista gadget */
+html.fruity main :is([class~='text-4xl'], [class~='text-3xl'], [class~='text-2xl'], [class~='text-xl'][class~='font-bold']):not([class*='amber']):not([class*='emerald']):not([class*='rose']) {
+  color: var(--fa-num) !important;
+  text-shadow: var(--fa-num-glow);
+}
+
+/* Charts */
+html.fruity [stroke='#094AD8'] {
+  stroke: #13b4f2;
+  filter: drop-shadow(0 0 4px rgba(40, 190, 255, 0.8));
+}
+html.fruity [fill='#094AD8'] {
+  fill: #13b4f2;
+}
+html.fruity stop[stop-color='#094AD8'] {
+  stop-color: #3fd2ff;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Scrollbars                                                                 */
+/* -------------------------------------------------------------------------- */
+html.fruity ::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+html.fruity ::-webkit-scrollbar-track {
+  background: linear-gradient(90deg, #d4eef9, #f2fbff);
+}
+html.fruity ::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #8ee4ff, #2bb6f0 50%, #0d93d8 51%, #45c8f8);
+  border: 2px solid #e6f7fe;
+  border-radius: 999px !important;
+}
+html.fruity.dark ::-webkit-scrollbar-track {
+  background: #02152b;
+}
+html.fruity.dark ::-webkit-scrollbar-thumb {
+  border-color: #02152b;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Cursors — owl on a surfboard; shaka on clickables; surfer on charts        */
+/* -------------------------------------------------------------------------- */
+html.fruity,
+html.fruity * {
+  cursor: url('/stickers/cursor-owl.png') 2 2, auto;
+}
+html.fruity :is(button, a, select, summary, label[for], [role='switch'], [role='button'], .cursor-pointer) {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Ctext x='1' y='29' font-size='29'%3E%F0%9F%A4%99%3C/text%3E%3C/svg%3E") 8 4, pointer !important;
+}
+html.fruity :is(input:not([type='checkbox']):not([type='radio']), textarea) {
+  cursor: text !important;
+}
+html.fruity .cursor-crosshair {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Ctext x='1' y='29' font-size='29'%3E%F0%9F%8F%84%3C/text%3E%3C/svg%3E") 18 18, crosshair !important;
+}
+html.fruity .fa-sticker {
+  cursor: grab !important;
+}
+html.fruity .fa-sticker:active {
+  cursor: grabbing !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Decor: Scrolling dolphin-owl surfing backdrop                              */
+/* -------------------------------------------------------------------------- */
+.fa-wallpaper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1400px;
+  z-index: -2;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 72% 14%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 240, 0.15) 7%, transparent 20%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(56, 189, 248, 0.06) 40%, rgba(3, 42, 72, 0.5) 75%, #032a48 100%),
+    url('/stickers/dolphin-owl-surf-bg.webp');
+  background-position: center top;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+html.fruity.dark .fa-wallpaper {
+  background-image:
+    radial-gradient(circle at 72% 14%, rgba(225, 250, 255, 0.25) 0%, rgba(120, 220, 255, 0.08) 8%, transparent 20%),
+    linear-gradient(180deg, rgba(1, 11, 29, 0.72) 0%, rgba(3, 34, 74, 0.65) 45%, rgba(1, 13, 26, 0.96) 100%),
+    url('/stickers/dolphin-owl-surf-bg.webp');
+}
+
+@media (max-width: 768px) {
+  .fa-wallpaper {
+    height: 850px;
+  }
+}
+
+.fa-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: transparent;
+}
+
+.fa-swoosh {
+  position: absolute;
+  left: -30vw;
+  width: 160vw;
+  height: 70vh;
+  border-radius: 50%;
+  border-top: 2px solid rgba(255, 255, 255, 0.75);
+  box-shadow: inset 0 18px 40px -22px rgba(255, 255, 255, 0.9);
+  opacity: 0.7;
+  animation: fa-drift 26s ease-in-out infinite alternate;
+}
+.fa-swoosh--a {
+  top: 26%;
+  rotate: -7deg;
+}
+.fa-swoosh--b {
+  top: 34%;
+  rotate: -3deg;
+  opacity: 0.45;
+  animation-duration: 34s;
+  animation-direction: alternate-reverse;
+}
+html.fruity.dark .fa-swoosh {
+  border-top-color: rgba(110, 230, 255, 0.45);
+  box-shadow: inset 0 18px 40px -22px rgba(80, 220, 255, 0.55);
+  opacity: 0.5;
+}
+
+/* Unused ground gradient - hidden so surfing dolphin-owls & waves are fully visible */
+.fa-ground {
+  display: none;
+}
+
+.fa-bubble {
+  position: absolute;
+  bottom: -90px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: radial-gradient(circle at 30% 27%, rgba(255, 255, 255, 0.95) 0 6%, rgba(255, 255, 255, 0.25) 14%, rgba(190, 240, 255, 0.12) 55%, rgba(255, 255, 255, 0.5) 92%, rgba(255, 255, 255, 0.2) 100%);
+  box-shadow: inset -4px -6px 12px rgba(120, 220, 255, 0.35), 0 0 12px rgba(255, 255, 255, 0.3);
+  animation: fa-rise linear infinite;
+}
+html.fruity.dark .fa-bubble {
+  border-color: rgba(140, 230, 255, 0.45);
+  box-shadow: inset -4px -6px 12px rgba(60, 200, 255, 0.35), 0 0 14px rgba(80, 210, 255, 0.35);
+}
+
+.fa-star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 6px #bff4ff;
+  animation: fa-twinkle 3s ease-in-out infinite;
+}
+html.fruity:not(.dark) .fa-star {
+  display: none;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Decor: stickers                                                            */
+/* -------------------------------------------------------------------------- */
+.fa-sticker-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+}
+.fa-sticker {
+  --size: clamp(84px, calc((100vw - 80rem) / 2 - 28px), 150px);
+  position: absolute;
+  width: var(--size);
+  pointer-events: auto;
+  touch-action: none;
+  user-select: none;
+  rotate: var(--rot, 0deg);
+  transition: scale 0.2s ease;
+}
+.fa-sticker--left {
+  left: max(8px, calc((100vw - 80rem) / 4 - var(--size) / 2));
+}
+.fa-sticker--right {
+  right: max(8px, calc((100vw - 80rem) / 4 - var(--size) / 2));
+}
+.fa-sticker:hover {
+  scale: 1.08;
+}
+.fa-sticker img {
+  display: block;
+  width: 100%;
+  height: auto;
+  -webkit-user-drag: none;
+  /* Re-creates a crisp die-cut sticker border around the cut-out art */
+  filter: drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(0 7px 10px rgba(0, 50, 100, 0.35));
+  animation: fa-bob 6s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+.fa-sticker.fa-boing img {
+  animation: fa-boing 0.7s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+/* Narrow screens: no gutters, so stickers sink behind the glass cards instead. */
+@media (max-width: 1479px) {
+  .fa-sticker-layer {
+    z-index: -1;
+  }
+  .fa-sticker {
+    pointer-events: none;
+    opacity: 0.8;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Decor: MySpace profile strip                                               */
+/* -------------------------------------------------------------------------- */
+.fa-myspace {
+  width: 100%;
+  max-width: 80rem;
+  margin: 14px auto 0;
+  padding: 0 1rem;
+}
+@media (min-width: 1024px) {
+  .fa-myspace {
+    padding: 0 2rem;
+  }
+}
+.fa-myspace-inner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 14px;
+  border-radius: 18px;
+  background: var(--fa-glass);
+  border: 1px solid var(--fa-glass-border);
+  box-shadow: var(--fa-shadow);
+}
+.fa-pfp {
+  flex-shrink: 0;
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  border: 2px solid #fff;
+  background: linear-gradient(180deg, #c8f3ff, #5ccaf5);
+  box-shadow: 0 2px 8px rgba(0, 90, 150, 0.4), inset 0 1px 0 #fff;
+  overflow: hidden;
+}
+.fa-pfp img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+.fa-profile {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+  flex-shrink: 0;
+}
+.fa-name {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--fa-ink);
+}
+.fa-online {
+  font-size: 11px;
+  font-weight: 800;
+  color: #2fae00;
+  animation: fa-blink 1.2s steps(2, start) infinite;
+}
+html.fruity.dark .fa-online {
+  color: #8cff4a;
+  text-shadow: 0 0 6px rgba(140, 255, 74, 0.7);
+}
+.fa-mood {
+  font-size: 11px;
+  color: var(--fa-ink-soft);
+}
+.fa-marquee {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.fa-marquee-track {
+  display: inline-flex;
+  animation: fa-marquee 38s linear infinite;
+}
+.fa-marquee:hover .fa-marquee-track {
+  animation-play-state: paused;
+}
+.fa-marquee-item {
+  padding-right: 3rem;
+}
+html.fruity .fa-glitter {
+  font-family: 'Comic Sans MS', 'Comic Neue', 'Chalkboard SE', cursive !important;
+  font-weight: 800;
+  font-size: 14px;
+  background: linear-gradient(90deg, #ff4fc8, #ff9f1a, #22c8ff, #5fd12a, #b86bff, #ff4fc8);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.85));
+  animation: fa-glitter 5s linear infinite;
+}
+html.fruity.dark .fa-glitter {
+  filter: drop-shadow(0 0 4px rgba(255, 120, 230, 0.5));
+}
+.fa-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+  font-size: 10.5px;
+  color: var(--fa-ink-soft);
+}
+.fa-odometer {
+  display: inline-flex;
+  gap: 2px;
+}
+html.fruity .fa-digit {
+  font-family: 'Courier New', Courier, monospace !important;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 0 3px;
+  border-radius: 3px;
+  color: #7cff4a;
+  background: linear-gradient(180deg, #3a3a3a, #000 50%, #1c1c1c);
+  border: 1px solid #555;
+  text-shadow: 0 0 4px rgba(124, 255, 74, 0.8);
+}
+@media (max-width: 767px) {
+  .fa-hide-sm {
+    display: none !important;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Decor: sparkle cursor trail & Aero toggle                                  */
+/* -------------------------------------------------------------------------- */
+.fa-sparkle-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow: hidden;
+  pointer-events: none;
+}
+.fa-sparkle {
+  position: absolute;
+  line-height: 1;
+  pointer-events: none;
+  translate: -50% -50%;
+  text-shadow: 0 0 6px currentColor, 0 0 2px #fff;
+  animation: fa-sparkle-fall 0.85s ease-out forwards;
+}
+
+.fa-toggle {
+  position: fixed;
+  left: 0;
+  top: 42%;
+  z-index: 45;
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+  padding: 12px 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(90deg, #2cc0f7 0%, #0b94dc 47%, #36bdf4 53%, #8ae6ff 100%);
+  border: 1px solid #0a7fc2;
+  border-left: none;
+  border-radius: 12px 0 0 12px !important;
+  text-shadow: 0 1px 1px rgba(0, 50, 100, 0.55);
+  box-shadow: 0 2px 10px rgba(0, 120, 200, 0.45);
+}
+html:not(.fruity) .fa-toggle {
+  background: #094ad8;
+  border-color: #094ad8;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Keyframes                                                                  */
+/* -------------------------------------------------------------------------- */
+@keyframes fa-rise {
+  0% { transform: translate(0, 0); opacity: 0; }
+  8% { opacity: 1; }
+  50% { transform: translate(var(--sway, 20px), -55vh); }
+  92% { opacity: 1; }
+  100% { transform: translate(0, -118vh); opacity: 0; }
+}
+@keyframes fa-drift {
+  from { translate: -4vw 0; }
+  to { translate: 4vw 2vh; }
+}
+@keyframes fa-twinkle {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 1; }
+}
+@keyframes fa-bob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+@keyframes fa-boing {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.25, 0.8); }
+  55% { transform: scale(0.88, 1.15) rotate(-6deg); }
+  80% { transform: scale(1.05, 0.96) rotate(3deg); }
+  100% { transform: scale(1); }
+}
+@keyframes fa-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes fa-glitter {
+  from { background-position: 0% center; }
+  to { background-position: 200% center; }
+}
+@keyframes fa-blink {
+  to { visibility: hidden; }
+}
+@keyframes fa-sparkle-fall {
+  0% { opacity: 1; transform: scale(1) rotate(0deg); }
+  100% { opacity: 0; transform: translate(var(--dx, 0px), 30px) scale(0.3) rotate(200deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fa-bubble,
+  .fa-swoosh,
+  .fa-star,
+  .fa-sticker img,
+  .fa-marquee-track,
+  .fa-online,
+  html.fruity .fa-glitter {
+    animation: none !important;
+  }
+}
+
+
+/* ========================================================================== */
+/* LNCR-WEP_ANALYSIS Specific Frutiger Aero Enhancements                      */
+/* ========================================================================== */
+html.fruity [class*="bg-white"],
+html.fruity [class*="bg-slate-900"] {
+  background: var(--fa-glass) !important;
+  border-color: var(--fa-glass-border) !important;
+  box-shadow: var(--fa-shadow) !important;
+}
+
+html.fruity [class*="border-slate-"] {
+  border-color: var(--fa-line) !important;
+}
+
+html.fruity [class*="bg-slate-50"],
+html.fruity [class*="bg-slate-100"],
+html.fruity [class*="bg-slate-800"],
+html.fruity [class*="bg-slate-950"] {
+  background: var(--fa-panel) !important;
+  border-color: var(--fa-panel-border) !important;
+}
+
+html.fruity [class*="text-slate-900"],
+html.fruity [class*="text-slate-800"],
+html.fruity [class*="text-slate-700"] {
+  color: var(--fa-ink) !important;
+}
+
+html.fruity [class*="text-slate-600"],
+html.fruity [class*="text-slate-500"],
+html.fruity [class*="text-slate-400"] {
+  color: var(--fa-ink-soft) !important;
+}
+
+html.fruity [class*="text-cyan-"] {
+  color: var(--fa-num) !important;
+  text-shadow: var(--fa-num-glow);
+}
+
+html.fruity button[class*="bg-cyan-"],
+html.fruity button[class*="bg-[#094AD8]"] {
+  background: var(--fa-gel) !important;
+  color: #fff !important;
+  border: 1px solid #0a7fc2 !important;
+  border-radius: 999px !important;
+  text-shadow: 0 1px 1px rgba(0, 50, 100, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), inset 0 -3px 6px rgba(120, 240, 255, 0.55), 0 2px 8px rgba(0, 120, 200, 0.4) !important;
+}

@@ -20,6 +20,8 @@ import { MetricsPanel } from './components/MetricsPanel';
 import { Header } from './components/Header';
 import { HelpModal } from './components/HelpModal';
 import { ExportReportModal } from './components/ExportReportModal';
+import { FruityDecor, FruityMySpaceBar } from './fruity/FruityDecor';
+import { audioPlayer } from './fruity/audioEngine';
 import {
   AlertCircle,
   ChevronDown,
@@ -35,6 +37,7 @@ import {
   Moon,
   Settings2,
   Shield,
+  Sparkles,
   Sun,
   UploadCloud,
   Zap,
@@ -44,6 +47,46 @@ import confetti from 'canvas-confetti';
 export const App: React.FC = () => {
   // Theme state: defaults to LIGHT mode
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+
+  // Serious Mode state: toggles between clean engineering UI and 2000s Frutiger Aero aesthetic (defaults to serious mode)
+  const [seriousMode, setSeriousMode] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return true;
+    const saved = localStorage.getItem('lncr_serious_mode');
+    return saved === null ? true : saved === 'true';
+  });
+
+  const toggleSeriousMode = () => {
+    setSeriousMode((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem('lncr_serious_mode', String(next));
+      } catch {}
+      if (next) {
+        document.documentElement.classList.remove('fruity');
+      } else {
+        document.documentElement.classList.add('fruity');
+      }
+      return next;
+    });
+  };
+
+  // Sync document class with seriousMode
+  useEffect(() => {
+    if (seriousMode) {
+      document.documentElement.classList.remove('fruity');
+    } else {
+      document.documentElement.classList.add('fruity');
+    }
+  }, [seriousMode]);
+
+  // Background audio: play Cipher in 2000s mode, pause in serious mode
+  useEffect(() => {
+    if (!seriousMode) {
+      audioPlayer.play().catch(() => {});
+    } else {
+      audioPlayer.pause();
+    }
+  }, [seriousMode]);
 
   // App model & calculation state
   const [bodies, setBodies] = useState<MeshBodyData[]>([]);
@@ -261,6 +304,12 @@ export const App: React.FC = () => {
       onDrop={handleDrop}
       className="min-h-screen flex flex-col bg-slate-100 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans selection:bg-cyan-500 selection:text-white transition-colors duration-200"
     >
+      {/* Frutiger Aero 2000s Atmosphere & Interactive Draggable Stickers */}
+      <FruityDecor
+        seriousMode={seriousMode}
+        onToggleSeriousMode={toggleSeriousMode}
+      />
+
       {/* App Header */}
       <Header
         onFileUpload={handleFileUpload}
@@ -270,6 +319,9 @@ export const App: React.FC = () => {
         onOpenHelp={() => setIsHelpOpen(true)}
         onExportReport={() => setIsExportOpen(true)}
       />
+
+      {/* 2000s MySpace Profile Banner, Cipher Audio Player & Hit Counter */}
+      <FruityMySpaceBar seriousMode={seriousMode} />
 
       {/* Main Workspace Layout */}
       <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -289,6 +341,7 @@ export const App: React.FC = () => {
             }}
             targetRpm={targetRpm}
             isDarkMode={isDarkMode}
+            is2000sMode={!seriousMode}
           />
 
           {/* Floating Weapon Classification & Center of Mass Badge */}
@@ -492,6 +545,20 @@ export const App: React.FC = () => {
             </button>
 
             <div className="w-[1px] h-4 bg-slate-200 dark:bg-slate-800" />
+
+            {/* 2000s Mode (Cipher Anthem) Toggle */}
+            <button
+              onClick={toggleSeriousMode}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border transition-all shadow-xs cursor-pointer ${
+                !seriousMode
+                  ? 'bg-gradient-to-r from-cyan-500 via-sky-400 to-blue-600 text-white font-extrabold border-cyan-400 shadow-md shadow-cyan-500/30'
+                  : 'border-slate-300 dark:border-slate-700 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold'
+              }`}
+              title={seriousMode ? 'Switch to 2000s Mode (Kevin MacLeod Cipher anthem & Frutiger Aero theme)' : 'Return to Serious Mode'}
+            >
+              <Sparkles size={14} className={!seriousMode ? 'text-yellow-300 animate-spin' : 'text-cyan-600 dark:text-cyan-400'} />
+              <span>{!seriousMode ? '✨ 2000s Mode: ON 🎵' : '✨ 2000s Mode'}</span>
+            </button>
 
             {/* Light / Dark Mode Toggle Button */}
             <button

@@ -30,6 +30,7 @@ interface Viewer3DProps {
   onToggleSpinDirection?: () => void;
   targetRpm: number;
   isDarkMode: boolean;
+  is2000sMode?: boolean;
 }
 
 export const Viewer3D: React.FC<Viewer3DProps> = ({
@@ -41,6 +42,7 @@ export const Viewer3D: React.FC<Viewer3DProps> = ({
   onToggleSpinDirection,
   targetRpm,
   isDarkMode,
+  is2000sMode,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -228,23 +230,27 @@ export const Viewer3D: React.FC<Viewer3DProps> = ({
     };
   }, []);
 
-  // Update theme colors when isDarkMode changes
+  // Update theme colors when isDarkMode or is2000sMode changes
   useEffect(() => {
     if (!sceneRef.current) return;
-    sceneRef.current.background = new THREE.Color(isDarkMode ? '#090d16' : '#f1f5f9');
+    if (is2000sMode) {
+      sceneRef.current.background = new THREE.Color(isDarkMode ? '#02182e' : '#dcf0fa');
+    } else {
+      sceneRef.current.background = new THREE.Color(isDarkMode ? '#090d16' : '#f1f5f9');
+    }
     if (gridHelperRef.current && sceneRef.current) {
       sceneRef.current.remove(gridHelperRef.current);
       const grid = new THREE.GridHelper(
         400,
         40,
-        isDarkMode ? 0x1e293b : 0x94a3b8,
-        isDarkMode ? 0x0f172a : 0xcbd5e1
+        is2000sMode ? (isDarkMode ? 0x0a84c6 : 0x38bdf8) : (isDarkMode ? 0x1e293b : 0x94a3b8),
+        is2000sMode ? (isDarkMode ? 0x053c61 : 0xbae6fd) : (isDarkMode ? 0x0f172a : 0xcbd5e1)
       );
       grid.position.y = -60;
       sceneRef.current.add(grid);
       gridHelperRef.current = grid;
     }
-  }, [isDarkMode]);
+  }, [isDarkMode, is2000sMode]);
 
   // Synchronize Pivot with Axis Origin
   useEffect(() => {

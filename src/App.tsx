@@ -69,7 +69,7 @@ export const App: React.FC = () => {
   const [loadingStage, setLoadingStage] = useState<string>('Initializing WebAssembly CAD Engine...');
   const [loadingPercent, setLoadingPercent] = useState<number>(10);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [currentFilename, setCurrentFilename] = useState<string>('2.75Sym.STEP');
+  const [currentFilename, setCurrentFilename] = useState<string>('Blade_2.5-1.step');
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
   const [isHelpOpen, setIsHelpOpen] = useState<boolean>(false);
   const [isExportOpen, setIsExportOpen] = useState<boolean>(false);

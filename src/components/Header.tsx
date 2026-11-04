@@ -73,16 +73,25 @@ export const Header: React.FC<HeaderProps> = ({
               if (sample) onSampleSelect(sample);
             }}
             defaultValue=""
-            className="bg-slate-100 dark:bg-slate-800/90 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 cursor-pointer font-medium"
+            className="bg-slate-100 dark:bg-slate-800/90 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 cursor-pointer font-medium max-w-[260px] truncate"
           >
             <option value="" disabled>
-              ⚡ Load Sample Weapon...
+              ⚡ Load Default Blade ({SAMPLE_MODELS.length} Available)...
             </option>
-            {SAMPLE_MODELS.map((sample) => (
-              <option key={sample.id} value={sample.id}>
-                {sample.title}
-              </option>
-            ))}
+            <optgroup label="Antweight Blades (2.50″ – 3.75″)">
+              {SAMPLE_MODELS.filter((s) => s.weightClass.includes('Antweight')).map((sample) => (
+                <option key={sample.id} value={sample.id}>
+                  {sample.title}
+                </option>
+              ))}
+            </optgroup>
+            <optgroup label="Beetleweight Blades (4.00″ – 6.00″)">
+              {SAMPLE_MODELS.filter((s) => s.weightClass.includes('Beetleweight')).map((sample) => (
+                <option key={sample.id} value={sample.id}>
+                  {sample.title}
+                </option>
+              ))}
+            </optgroup>
           </select>
 
           {/* Upload STEP Button */}

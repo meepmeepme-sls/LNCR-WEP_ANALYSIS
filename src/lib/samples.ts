@@ -190,13 +190,13 @@ export const SAMPLE_MODELS: SampleModel[] = [
     url: './samples/Blade_3.75-1.step',
   },
 
-  // --- 4.00" to 6.00" Beetleweight & Heavy Ant Blades ---
+  // --- 4.00" to 6.00" Antweight Long-Reach Blades ---
   {
     id: 'blade-400-1',
     title: '4.00" Blade Type 1 (4.76mm / 0.188")',
     filename: 'Blade_4.00-1.step',
     weaponType: 'spinner_bar',
-    weightClass: '3 lb Beetleweight',
+    weightClass: '1 lb Antweight',
     defaultMaterialId: 'steel',
     defaultAxis: {
       name: '⚡ Center of Mass (COM) - X-Axis',
@@ -205,7 +205,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
       spinReversed: false,
     },
     defaultRpm: 10500,
-    description: '4.00" spinner bar for heavy antweight or beetleweight spinners.',
+    description: '4.00" spinner bar for long-reach antweight horizontal or vertical spinners.',
     url: './samples/Blade_4.00-1.step',
   },
   {
@@ -213,7 +213,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
     title: '4.25" Blade Type 1 (3.18mm / 0.125")',
     filename: 'Blade_4.25-1.step',
     weaponType: 'spinner_bar',
-    weightClass: '3 lb Beetleweight',
+    weightClass: '1 lb Antweight',
     defaultMaterialId: 'steel',
     defaultAxis: {
       name: '⚡ Center of Mass (COM) - X-Axis',
@@ -222,7 +222,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
       spinReversed: false,
     },
     defaultRpm: 10000,
-    description: '1/8" (3.18mm) 4.25" high-speed reach blade with weight reduction pockets.',
+    description: '1/8" (3.18mm) 4.25" high-speed reach antweight blade with weight reduction pockets.',
     url: './samples/Blade_4.25-1.step',
   },
   {
@@ -230,7 +230,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
     title: '4.50" Blade Type 1 (3.18mm / 0.125")',
     filename: 'Blade_4.50-1.step',
     weaponType: 'spinner_bar',
-    weightClass: '3 lb Beetleweight',
+    weightClass: '1 lb Antweight',
     defaultMaterialId: 'steel',
     defaultAxis: {
       name: '⚡ Center of Mass (COM) - X-Axis',
@@ -239,7 +239,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
       spinReversed: false,
     },
     defaultRpm: 9500,
-    description: '4.50" long-reach blade for horizontal or vertical spinners.',
+    description: '4.50" long-reach blade for antweight horizontal or vertical spinners.',
     url: './samples/Blade_4.50-1.step',
   },
   {
@@ -247,7 +247,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
     title: '4.75" Blade Type 1 (3.18mm / 0.125")',
     filename: 'Blade_4.75-1.step',
     weaponType: 'spinner_bar',
-    weightClass: '3 lb Beetleweight',
+    weightClass: '1 lb Antweight',
     defaultMaterialId: 'steel',
     defaultAxis: {
       name: '⚡ Center of Mass (COM) - X-Axis',
@@ -256,7 +256,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
       spinReversed: false,
     },
     defaultRpm: 9000,
-    description: '4.75" beetleweight spinner blade with wide outer engagement envelope.',
+    description: '4.75" antweight spinner blade with wide outer engagement envelope.',
     url: './samples/Blade_4.75-1.step',
   },
   {
@@ -264,7 +264,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
     title: '5.00" Blade Type 1 (4.76mm / 0.188")',
     filename: 'Blade_5.00-1.step',
     weaponType: 'spinner_bar',
-    weightClass: '3 lb Beetleweight',
+    weightClass: '1 lb Antweight',
     defaultMaterialId: 'steel',
     defaultAxis: {
       name: '⚡ Center of Mass (COM) - X-Axis',
@@ -273,7 +273,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
       spinReversed: false,
     },
     defaultRpm: 8500,
-    description: '5.00" 3/16" plate beetleweight impact bar with massive stored kinetic energy.',
+    description: '5.00" 3/16" plate antweight impact bar with massive stored kinetic energy.',
     url: './samples/Blade_5.00-1.step',
   },
   {
@@ -281,7 +281,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
     title: '5.25" Blade Type 1 (3.18mm / 0.125")',
     filename: 'Blade_5.25-1.step',
     weaponType: 'spinner_bar',
-    weightClass: '3 lb Beetleweight',
+    weightClass: '1 lb Antweight',
     defaultMaterialId: 'steel',
     defaultAxis: {
       name: '⚡ Center of Mass (COM) - X-Axis',
@@ -290,7 +290,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
       spinReversed: false,
     },
     defaultRpm: 8000,
-    description: '5.25" high-reach beetleweight spinner bar.',
+    description: '5.25" high-reach antweight spinner bar.',
     url: './samples/Blade_5.25-1.step',
   },
   {
@@ -298,7 +298,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
     title: '5.50" Blade Type 1 (3.18mm / 0.125")',
     filename: 'Blade_5.5-1.step',
     weaponType: 'spinner_bar',
-    weightClass: '3 lb Beetleweight',
+    weightClass: '1 lb Antweight',
     defaultMaterialId: 'steel',
     defaultAxis: {
       name: '⚡ Center of Mass (COM) - X-Axis',
@@ -307,7 +307,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
       spinReversed: false,
     },
     defaultRpm: 7500,
-    description: '5.50" long-reach blade with broad cutting radius and large sweep profile.',
+    description: '5.50" long-reach antweight blade with broad cutting radius and large sweep profile.',
     url: './samples/Blade_5.5-1.step',
   },
   {
@@ -315,7 +315,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
     title: '6.00" Blade Type 1 (3.18mm / 0.125")',
     filename: 'Blade_6.00-1.step',
     weaponType: 'spinner_bar',
-    weightClass: '3 lb Beetleweight',
+    weightClass: '1 lb Antweight',
     defaultMaterialId: 'steel',
     defaultAxis: {
       name: '⚡ Center of Mass (COM) - X-Axis',
@@ -324,7 +324,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
       spinReversed: false,
     },
     defaultRpm: 7000,
-    description: 'Full 6.00" diameter beetleweight combat blade with high tip speed and impact bite.',
+    description: 'Full 6.00" diameter antweight combat blade with high tip speed and impact bite.',
     url: './samples/Blade_6.00-1.step',
   },
   {
@@ -332,7 +332,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
     title: '6.00" Blade Type 2 (3.18mm / 0.125")',
     filename: 'Blade_6.00-2.step',
     weaponType: 'spinner_bar',
-    weightClass: '3 lb Beetleweight',
+    weightClass: '1 lb Antweight',
     defaultMaterialId: 'steel',
     defaultAxis: {
       name: '⚡ Center of Mass (COM) - X-Axis',
@@ -341,7 +341,7 @@ export const SAMPLE_MODELS: SampleModel[] = [
       spinReversed: false,
     },
     defaultRpm: 7000,
-    description: 'Alternative geometry 6.00" beetleweight spinner bar with specialized tooth relief.',
+    description: 'Alternative geometry 6.00" antweight spinner bar with specialized tooth relief.',
     url: './samples/Blade_6.00-2.step',
   },
 ];

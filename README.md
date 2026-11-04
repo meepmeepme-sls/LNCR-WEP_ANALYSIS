@@ -58,9 +58,9 @@ A modern, responsive, 100% free-to-host web application designed for combat robo
   - **Setup Tab (Minimizable Window)**: Quick collapse/expand window for rotation axis and material selection.
   - **Site-Wide Light / Dark Mode**: Default crisp light mode with instant theme switcher in the footer.
 
-- **Pre-Loaded Default Blades Library (20 Weapons)**:
-  - **Antweight Blades (2.50″ to 3.75″)**: 2.50″ Type 1 & 2, 2.75″ Symmetric (`2.75Sym`), 2.75″ Single-Tooth (`2.75Bar`), 2.75″ High-MOI (`2.75MOI`), 2.75″ Type 1, 3.00″ Type 1 & 2, 3.25″ Type 1, 3.50″ Type 1, 3.75″ Type 1.
-  - **Beetleweight Blades (4.00″ to 6.00″)**: 4.00″ Type 1, 4.25″ Type 1, 4.50″ Type 1, 4.75″ Type 1, 5.00″ Type 1, 5.25″ Type 1, 5.50″ Type 1, 6.00″ Type 1 & 2.
+- **Pre-Loaded Default Blades Library (20 1lb Antweight Weapons)**:
+  - **Antweight Compact (2.50″ to 3.75″)**: 2.50″ Type 1 & 2, 2.75″ Symmetric (`2.75Sym`), 2.75″ Single-Tooth (`2.75Bar`), 2.75″ High-MOI (`2.75MOI`), 2.75″ Type 1, 3.00″ Type 1 & 2, 3.25″ Type 1, 3.50″ Type 1, 3.75″ Type 1.
+  - **Antweight Long-Reach (4.00″ to 6.00″)**: 4.00″ Type 1, 4.25″ Type 1, 4.50″ Type 1, 4.75″ Type 1, 5.00″ Type 1, 5.25″ Type 1, 5.50″ Type 1, 6.00″ Type 1 & 2.
 
 ---
 

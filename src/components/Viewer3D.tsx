@@ -54,7 +54,7 @@ export const Viewer3D: React.FC<Viewer3DProps> = ({
   const [showComMarker, setShowComMarker] = useState<boolean>(true);
   const [showAxisLine, setShowAxisLine] = useState<boolean>(true);
   const [isPickMode, setIsPickMode] = useState<boolean>(false);
-  const [spinSpeedFactor, setSpinSpeedFactor] = useState<number>(0.25); // Default to low preview speed so blade is easy to inspect
+  const [spinSpeedFactor, setSpinSpeedFactor] = useState<number>(1.2); // Default to slowest preview speed (previous fast setting)
 
   // Live mutable refs to eliminate stale closure bugs in requestAnimationFrame
   const axisRef = useRef<AxisConfig>(axis);
@@ -762,16 +762,16 @@ export const Viewer3D: React.FC<Viewer3DProps> = ({
           <span className="text-slate-500 dark:text-slate-400">Preview:</span>
           <div className="flex items-center gap-1">
             {[
-              { label: 'Low', val: 0.25, title: 'Low speed (easy to see blade teeth & rotation)' },
-              { label: 'Med', val: 0.6, title: 'Medium preview speed' },
-              { label: 'Fast', val: 1.2, title: 'Fast preview speed' },
+              { label: 'Slow', val: 1.2, title: 'Slowest option (clear inspection, previous fast setting)' },
+              { label: 'Med', val: 6.0, title: 'Medium combat spin' },
+              { label: 'Blur', val: 18.0, title: 'Fastest option (high-speed weapon blur)' },
             ].map((p) => (
               <button
                 key={p.val}
                 type="button"
                 onClick={() => setSpinSpeedFactor(p.val)}
-                className={`px-1.5 py-0.5 rounded text-[10px] font-bold transition-all ${
-                  Math.abs(spinSpeedFactor - p.val) < 0.05
+                className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all cursor-pointer ${
+                  Math.abs(spinSpeedFactor - p.val) < 0.25
                     ? 'bg-cyan-600 dark:bg-cyan-500 text-white dark:text-slate-950 shadow-xs'
                     : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300'
                 }`}
@@ -783,13 +783,13 @@ export const Viewer3D: React.FC<Viewer3DProps> = ({
           </div>
           <input
             type="range"
-            min="0.05"
-            max="2.0"
-            step="0.05"
+            min="1.0"
+            max="24.0"
+            step="0.2"
             value={spinSpeedFactor}
             onChange={(e) => setSpinSpeedFactor(parseFloat(e.target.value))}
             className="w-16 accent-cyan-600 dark:accent-cyan-500 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg cursor-pointer ml-1"
-            title={`Fine-tune Visual Spin Speed: ${(spinSpeedFactor * 100).toFixed(0)}%`}
+            title={`Fine-tune Visual Spin Speed: ${spinSpeedFactor.toFixed(1)}x`}
           />
         </div>
 

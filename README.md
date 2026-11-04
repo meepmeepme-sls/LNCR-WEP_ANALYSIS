@@ -58,9 +58,10 @@ A modern, responsive, 100% free-to-host web application designed for combat robo
   - **Setup Tab (Minimizable Window)**: Quick collapse/expand window for rotation axis and material selection.
   - **Site-Wide Light / Dark Mode**: Default crisp light mode with instant theme switcher in the footer.
 
-- **Pre-Loaded Sample Models**:
-  - 6" Anti-Vertical Tool Steel Weapon Bar (Asymmetric single-bite tooth)
-  - 1lb Hubmotor Drum Assembly (25 Bodies, direct-drive hubmotor weapon)
+- **Pre-Loaded Default Blades**:
+  - **2.75" Symmetric Spinner Bar** (`2.75Sym.STEP`) — Balanced double-tooth impact blade for 1lb antweights
+  - **2.75" Single-Tooth Bar** (`2.75Bar.STEP`) — Aggressive asymmetric single-bite weapon bar
+  - **2.75" High-MOI Blade** (`2.75MOI.STEP`) — Perimeter-weighted high kinetic energy disc blade
 
 ---
 
